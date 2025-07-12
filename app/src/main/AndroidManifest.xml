@@ -36,7 +36,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".RutaActivity" />
-        <activity android:name=".ComprasActivity" android:exported="true"/>
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"
