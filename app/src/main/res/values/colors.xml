@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Colores principales -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimaryLight">#C5CAE9</color>
+
+    <!-- Colores acento -->
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- Colores de fondo -->
+    <color name="colorBackground">#FAFAFA</color>
+    <color name="colorBackgroundDark">#121212</color>
+
+    <!-- Colores de texto -->
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#757575</color>
+    <color name="colorTextPrimaryDark">#FFFFFF</color>
+
+    <!-- Colores especiales -->
+    <color name="colorUrgent">#F44336</color>
+    <color name="colorNormal">#4CAF50</color>
+</resources>
