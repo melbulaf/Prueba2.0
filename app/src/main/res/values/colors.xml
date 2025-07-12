@@ -3,6 +3,8 @@
     <!-- Colores principales -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
+    <color name="primary_color">#3F51B5</color>
+    <color name="dark_primary_color">#303F9F</color>
     <color name="colorPrimaryLight">#C5CAE9</color>
 
     <!-- Colores acento -->
@@ -11,6 +13,8 @@
     <!-- Colores de fondo -->
     <color name="colorBackground">#FAFAFA</color>
     <color name="colorBackgroundDark">#121212</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
 
     <!-- Colores de texto -->
     <color name="colorTextPrimary">#212121</color>
