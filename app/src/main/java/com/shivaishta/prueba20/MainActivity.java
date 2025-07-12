@@ -85,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         cardCompras.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Compras - En desarrollo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ComprasActivity.class);
+                startActivity(intent);
             }
         });
 
