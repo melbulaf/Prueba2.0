@@ -13,17 +13,23 @@
         android:layout_width="379dp"
         android:layout_height="58dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="636dp"
         android:text="Registrar pedidos"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBaseline_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <TableLayout
         android:id="@+id/tableLayout"
-        android:layout_width="414dp"
-        android:layout_height="665dp"
+        android:layout_width="411dp"
+        android:layout_height="609dp"
+        android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.666"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent">
 
         <TableRow
