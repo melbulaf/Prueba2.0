@@ -174,14 +174,15 @@
                         android:layout_height="70dp"
                         android:src="@drawable/logo2"
                         android:contentDescription="Logo Ruta"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Reportes"
-                        android:textColor="#2C3E50"
+                        android:layout_marginTop="7dp"
                         android:fontFamily="casual"
-                        android:textSize="20sp"
-                        android:layout_marginTop="7dp"/>
+                        android:text="Pedidos"
+                        android:textColor="#2C3E50"
+                        android:textSize="20sp" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 

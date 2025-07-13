@@ -3,6 +3,7 @@ package com.shivaishta.prueba20;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -13,10 +14,14 @@ import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+    Button registrarPedido;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         // Botón Ruta
         CardView cardRuta = findViewById(R.id.cardRuta);
@@ -65,11 +70,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        CardView cardReportes = findViewById(R.id.cardFunc4);
-        cardReportes.setOnClickListener(new View.OnClickListener() {
+        CardView cardPedidos = findViewById(R.id.cardFunc4);
+        cardPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Reportes - En desarrollo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, RegistrarPedido.class);
+                startActivity(intent);
             }
         });
 
@@ -89,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
 
     }
 }
