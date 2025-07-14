@@ -1,6 +1,7 @@
 package com.shivaishta.prueba20;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -13,6 +14,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class registro_ped extends AppCompatActivity {
+
+    Button bnueva;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,4 +52,14 @@ public class registro_ped extends AppCompatActivity {
 
 
     }
+
+    //Boton Nueva Compra
+    bnueva = findViewById(R.id.addcompraico);
+        bnueva.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            showDialogCompra();
+        }
+    });
+
 }

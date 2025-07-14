@@ -8,6 +8,17 @@
     android:background="@drawable/back_spl"
     tools:context=".registro_ped">
 
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Volver atrás"
+        android:src="@drawable/addcomprablack"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="67dp" />
+
+
     <!-- Producto -->
     <TextView
         android:id="@+id/textView7"
