@@ -88,7 +88,21 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         LinearLayout containerProductos = findViewById(R.id.containerProductos);
         double total = 0;
 
-        for (Producto producto : pedido.getProductos()) {
+        for (String p : pedido.getProductos()) { //partes[0] es el codigo del producto
+                                                 //partes [1] es la cantidad de ese prod.
+            String[] partes = p.split("_");
+            int codigo = Integer.parseInt(partes[0]);
+            int cant = Integer.parseInt(partes[1]);
+            Producto producto = null;
+            //obtener producto
+            for (Producto pp : Producto.productos) {
+                if (pp.getCodigo() == codigo) {
+                    producto = pp;
+                    break;
+                }
+            }
+
+            if (producto != null) {
             // Calcular subtotal
             double subtotal = producto.getPrecio() * producto.getCantidad();
             total += subtotal;
@@ -102,7 +116,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             tvProducto.setText(String.format(Locale.getDefault(),
                     "• %s (Cantidad: %d)",
                     producto.getNombre(),
-                    producto.getCantidad()));
+                    cant));
 
             tvProducto.setTextSize(16);
             tvProducto.setTextColor(Color.parseColor("#333333"));
@@ -117,7 +131,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
 
             containerProductos.addView(tvProducto);
             containerProductos.addView(separator);
-        }
+        } }
     }
     private void abrirFacturaActivity() {
         Intent intent = new Intent(this, FacturaActivity.class);

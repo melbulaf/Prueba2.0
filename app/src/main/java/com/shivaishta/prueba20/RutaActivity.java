@@ -157,32 +157,32 @@ public class RutaActivity extends AppCompatActivity {
             case "lunes":
                 pedidos.add(new Pedido(
                         new Cliente("Lucía Díaz", "3101112233", "Calle 1 #23-45", "Entrega rápida"),
-                        List.of(new Producto("Chocolatina", 10, 1.0)),
+                        List.of(String.valueOf(new Producto("Chocolatina", 10, 1.0).getCodigo()) + "_" + "10"),
                         fecha));
                 break;
 
             case "martes":
                 pedidos.add(new Pedido(
                         new Cliente("Marco Pérez", "3122674001", "Cra 12 #30-10", ""),
-                        List.of(new Producto("Galletas", 5, 2.0), new Producto("Chicles", 20, 0.5)),
+                        List.of(String.valueOf(new Producto("Galletas", 5, 2.0).getCodigo()) + "_" + "10"),
                         fecha));
                 pedidos.add(new Pedido(
                         new Cliente("Sara Gómez", "3009876543", "Transv 19 #6-45", null),
-                        List.of(new Producto("Caramelos", 50, 0.2)),
+                        List.of(String.valueOf(new Producto("Caramelos", 50, 0.2).getCodigo()) + "_" + "10"),
                         fecha));
                 break;
 
             case "miercoles":
                 pedidos.add(new Pedido(
                         new Cliente("Luis Torres", "3112223333", "Cl. 100 #20-30", "Urgente"),
-                        List.of(new Producto("Paletas", 30, 1.2)),
+                        List.of(String.valueOf(new Producto("Paletas", 30, 1.2).getCodigo()) + "_" + "10"),
                         fecha));
                 break;
 
             case "sabado":
                 pedidos.add(new Pedido(
                         new Cliente("Mariana Castro", "3119991111", "Cll 50 #10-22", null),
-                        List.of(new Producto("Chocorramo", 12, 1.5)),
+                        List.of(String.valueOf(new Producto("Chocorramo", 12, 1.5).getCodigo()) + "_" + "10"),
                         fecha));
                 break;
         }

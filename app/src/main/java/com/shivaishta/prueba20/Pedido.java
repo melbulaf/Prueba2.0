@@ -6,17 +6,29 @@ import java.util.List;
 
 public class Pedido implements Serializable {
     private Cliente cliente;
-    private List<Producto> productos;
+    private List<String> productos; //formato string para codigo y cantidad separados por _
+                                    //Ej: {"1000_10","1001_7"}
     private String fecha;
+    private boolean confirmado;
 
-    public Pedido(Cliente cliente, List<Producto> productos, String fecha) {
+    public Pedido(Cliente cliente, List<String> productos, String fecha) {
         this.cliente = cliente;
         this.productos = productos;
         this.fecha = fecha;
+        this.confirmado = false;;
+    }
+
+    public Pedido(Cliente cliente, List<String> productos, String fecha, boolean estado) {
+        this.cliente = cliente;
+        this.productos = productos;
+        this.fecha = fecha;
+        this.confirmado = estado;;
     }
 
     // Getters
     public Cliente getCliente() { return cliente; }
-    public List<Producto> getProductos() { return productos; }
+    public List<String> getProductos() { return productos; }
     public String getFecha() { return fecha; }
+    public boolean getConfirmado() {return confirmado;}
+    public void setConfirmado(boolean estado) {this.confirmado = estado;}
 }

@@ -127,12 +127,27 @@ public class FacturaActivity extends AppCompatActivity {
             tabla.addCell(new PdfPCell(new Paragraph("Precio Unit.", fuenteNegrita)));
             tabla.addCell(new PdfPCell(new Paragraph("Subtotal", fuenteNegrita)));
 
-            for (Producto p : pedido.getProductos()) {
+            for (String pp : pedido.getProductos()) { //partes[0] es el codigo del producto
+                                                    //partes [1] es la cantidad de ese prod.
+                String[] partes = pp.split("_");
+                int codigo = Integer.parseInt(partes[0]);
+                int cant = Integer.parseInt(partes[1]);
+                Producto p = null;
+                //obtener producto
+                for (Producto producto : Producto.productos) {
+                    if (producto.getCodigo() == codigo) {
+                        p = producto;
+                        break;
+                    }
+                }
+
+                if (p != null) {
+
                 tabla.addCell(new Paragraph(String.valueOf(p.getCantidad()), fuenteSub));
                 tabla.addCell(new Paragraph(p.getNombre(), fuenteSub));
                 tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio()), fuenteSub));
                 tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio() * p.getCantidad()), fuenteSub));
-            }
+            } }
 
             documento.add(tabla);
 
@@ -186,8 +201,23 @@ public class FacturaActivity extends AppCompatActivity {
 
     private double calcularTotal() {
         double total = 0;
-        for (Producto p : pedido.getProductos()) {
-            total += p.getPrecio() * p.getCantidad();
+        for (String pp : pedido.getProductos()) { //partes[0] es el codigo del producto
+                                                  //partes [1] es la cantidad de ese prod.
+            String[] partes = pp.split("_");
+            int codigo = Integer.parseInt(partes[0]);
+            int cant = Integer.parseInt(partes[1]);
+            Producto p = null;
+            //obtener producto
+            for (Producto producto : Producto.productos) {
+                if (producto.getCodigo() == codigo) {
+                    p = producto;
+                    break;
+                }
+            }
+
+            if (p != null) {
+            total += p.getPrecio() * cant;
+            }
         }
         return total;
     }
