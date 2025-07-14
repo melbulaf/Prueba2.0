@@ -143,7 +143,7 @@ public class FacturaActivity extends AppCompatActivity {
 
                 if (p != null) {
 
-                tabla.addCell(new Paragraph(String.valueOf(cant), fuenteSufb));
+                tabla.addCell(new Paragraph(String.valueOf(cant), fuenteSub));
                 tabla.addCell(new Paragraph(p.getNombre(), fuenteSub));
                 tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio()), fuenteSub));
                 tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio() * cant), fuenteSub));
