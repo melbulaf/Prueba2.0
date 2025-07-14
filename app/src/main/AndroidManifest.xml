@@ -40,6 +40,9 @@
             android:name=".DetallesPedidoActivity"
             android:exported="false" />
         <activity
+            android:name=".InventarioActivity"
+            android:exported="false" />
+        <activity
             android:name=".PreloadActivity"
             android:exported="true">
             <intent-filter>
