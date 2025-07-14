@@ -104,7 +104,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
 
             if (producto != null) {
             // Calcular subtotal
-            double subtotal = producto.getPrecio() * producto.getCantidad();
+            double subtotal = producto.getPrecio() * cant;
             total += subtotal;
 
             // Crear TextView para el producto
