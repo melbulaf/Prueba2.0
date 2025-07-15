@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 public class RegistrarPedido extends AppCompatActivity {
 
     Button btnRegistrarPed;
+    Button btnVentas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,15 @@ public class RegistrarPedido extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(RegistrarPedido.this, registro_ped.class);
+                startActivity(intent);
+            }
+        });
+
+        btnVentas = findViewById(R.id.btventas);
+        btnVentas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RegistrarPedido.this, VentasActivity.class);
                 startActivity(intent);
             }
         });

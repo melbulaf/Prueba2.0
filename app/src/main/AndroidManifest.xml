@@ -13,22 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prueba20">
         <activity
+            android:name=".VentasActivity"
+            android:exported="false" />
+        <activity
             android:name=".registro_ped"
             android:exported="false" />
         <activity
-            android:name=".registroPed"
-            android:exported="false" />
-        <activity
             android:name=".RegistrarPedido"
-            android:exported="false" />
-        <activity
-            android:name=".tabla_de_pedidos"
-            android:exported="false" />
-        <activity
-            android:name=".tablaPedidos"
-            android:exported="false" />
-        <activity
-            android:name=".pedidosTabla"
             android:exported="false" />
         <activity
             android:name=".ComprasActivity"

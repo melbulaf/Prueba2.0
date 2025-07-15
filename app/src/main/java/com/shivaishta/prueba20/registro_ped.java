@@ -53,13 +53,4 @@ public class registro_ped extends AppCompatActivity {
 
     }
 
-    //Boton Nueva Compra
-    bnueva = findViewById(R.id.addcompraico);
-        bnueva.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            showDialogCompra();
-        }
-    });
-
 }
