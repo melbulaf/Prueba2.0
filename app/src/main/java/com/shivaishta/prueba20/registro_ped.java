@@ -156,9 +156,6 @@ public class registro_ped extends AppCompatActivity {
                     if (!nproductos.isEmpty() && clienteobj != null && !fecha.isEmpty()) {
                         //Registrar objeto pedido
                         new Pedido(clienteobj, nproductos, fecha);
-                        //Guardar Pedidos
-                        Pedido.guardarPed(registro_ped.this);
-                        //Notificacion
                         android.widget.Toast.makeText(registro_ped.this,
                                 "Pedido Registrado Exitosamente.",
                                 android.widget.Toast.LENGTH_LONG).show();
@@ -228,12 +225,7 @@ public class registro_ped extends AppCompatActivity {
 
                 if (!nproductos.isEmpty() && clienteobj != null && !fecha.isEmpty()) {
                     //Registrar objeto pedido
-                    Pedido npedido = new Pedido(clienteobj, nproductos, fecha, true);
-                    //Actualizar Productos
-                    npedido.confirmar();
-                    //Guardar pedidos
-                    Pedido.guardarPed(registro_ped.this);
-                    //toast para notificar al usuario
+                    new Pedido(clienteobj, nproductos, fecha, true);
                     android.widget.Toast.makeText(registro_ped.this,
                             "Venta Confirmada Exitosamente.",
                             android.widget.Toast.LENGTH_LONG).show();
