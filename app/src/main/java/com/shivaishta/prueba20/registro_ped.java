@@ -1,6 +1,5 @@
 package com.shivaishta.prueba20;
 
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableLayout;
@@ -24,7 +22,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class registro_ped extends AppCompatActivity {
@@ -32,7 +29,6 @@ public class registro_ped extends AppCompatActivity {
     Button badd;
     Button bregped;
     Button bconfirm;
-    Button bfecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,35 +49,6 @@ public class registro_ped extends AppCompatActivity {
                 showDialogProd();
             }
         });
-
-        //Boton Fecha
-        EditText edfecha = findViewById(R.id.editTextText4);
-        Button fecha = findViewById(R.id.fechap);
-        fecha.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final Calendar c = Calendar.getInstance();
-                int dia = c.get(Calendar.DAY_OF_MONTH);
-                int mes = c.get(Calendar.MONTH); // enero = 0
-                int ano = c.get(Calendar.YEAR);
-
-                DatePickerDialog datePickerDialog = new DatePickerDialog(
-                        registro_ped.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                // Sumar 1 al mes (porque enero es 0)
-                                String fechaFormateada = String.format("%02d/%02d/%04d", dayOfMonth, month + 1, year);
-                                edfecha.setText(fechaFormateada);
-                            }
-                        },
-                        ano, mes, dia
-                );
-
-                datePickerDialog.show();
-            }
-        });
-
 
         //Boton volver
         ImageButton btnBack = findViewById(R.id.btnBack);
@@ -313,10 +280,10 @@ public class registro_ped extends AppCompatActivity {
                         fila.setPadding(0, 8, 0, 8);
 
                         TextView tvNombre = new TextView(registro_ped.this);
-                        tvNombre.setText("Nombre: " + encontrado.getNombre());
+                        tvNombre.setText(encontrado.getNombre());
                         tvNombre.setTextAppearance(registro_ped.this, R.style.TableCellText);
                         TextView tvCantidad = new TextView(registro_ped.this);
-                        tvCantidad.setText("Cant: " + String.valueOf(cant));
+                        tvCantidad.setText(String.valueOf(cant));
                         tvCantidad.setTextAppearance(registro_ped.this, R.style.TableCellText);
 
                         // Botón eliminar

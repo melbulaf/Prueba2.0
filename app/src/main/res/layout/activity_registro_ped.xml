@@ -97,32 +97,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/editTextText3" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <EditText
+        android:id="@+id/editTextText4"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/textView10"
-        android:gravity="start">
-
-        <Button
-            android:id="@+id/fechap"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.4"
-            android:text="Fecha" />
-
-        <EditText
-            android:id="@+id/editTextText4"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_weight="0.6"
-            android:layout_marginHorizontal="16dp"
-            android:hint="Fecha"
-            android:imeOptions="actionNext"
-            android:inputType="date" />
-
-    </LinearLayout>
+        android:layout_marginHorizontal="16dp"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/textView10" />
 
     <!-- Botones finales -->
 
