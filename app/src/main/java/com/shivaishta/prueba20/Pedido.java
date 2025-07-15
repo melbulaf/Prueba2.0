@@ -35,5 +35,22 @@ public class Pedido implements Serializable {
     public List<String> getProductos() { return productos; }
     public String getFecha() { return fecha; }
     public boolean getConfirmado() {return confirmado;}
-    public void setConfirmado(boolean estado) {this.confirmado = estado;}
+    public void confirmar() {
+        this.confirmado = true;
+        for (String ped : this.productos) {
+            String[] partes = ped.split("_");
+            int codigoBuscado = Integer.parseInt(partes[0]);
+            int cantidad = Integer.parseInt(partes[1]);
+            if (partes.length != 2) continue;
+            Producto encontrado = null;
+            for (Producto p : Producto.productos) {
+                if (p.getCodigo() == codigoBuscado) {
+                    encontrado = p;
+                    break;
+                }
+            }
+            if (encontrado != null) {
+                encontrado.setCantidad(encontrado.getCantidad() + cantidad); }
+        }
+    }
 }
