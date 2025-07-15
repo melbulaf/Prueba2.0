@@ -67,7 +67,7 @@ public class VentasActivity extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVentas);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(true);
-        dialog.setContentView(R.layout.filtrosdialog);
+        dialog.setContentView(R.layout.filtrosvdialog);
 
         //Initializing the views of the dialog.
         final EditText idnombre = dialog.findViewById(R.id.idnombrefiltros);

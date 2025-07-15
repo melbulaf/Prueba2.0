@@ -75,11 +75,15 @@
 
             <Button
                 android:id="@+id/btnVerProductos"
-                android:layout_width="46dp"
+                android:layout_width="8dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="+"
                 android:textSize="13sp" />
+
+            <View
+                android:layout_width="39dp"
+                android:layout_height="match_parent" />
 
             <TextView
                 android:id="@+id/txtClienteVenta"
