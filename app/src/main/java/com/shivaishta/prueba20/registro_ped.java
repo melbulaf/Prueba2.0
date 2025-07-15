@@ -225,7 +225,10 @@ public class registro_ped extends AppCompatActivity {
 
                 if (!nproductos.isEmpty() && clienteobj != null && !fecha.isEmpty()) {
                     //Registrar objeto pedido
-                    new Pedido(clienteobj, nproductos, fecha, true);
+                    Pedido npedido = new Pedido(clienteobj, nproductos, fecha, true);
+                    //Actualizar Productos
+                    npedido.confirmar();
+                    //toast para notificar al usuario
                     android.widget.Toast.makeText(registro_ped.this,
                             "Venta Confirmada Exitosamente.",
                             android.widget.Toast.LENGTH_LONG).show();
