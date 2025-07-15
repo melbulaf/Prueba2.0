@@ -316,10 +316,10 @@ public class registro_ped extends AppCompatActivity {
                         fila.setPadding(0, 8, 0, 8);
 
                         TextView tvNombre = new TextView(registro_ped.this);
-                        tvNombre.setText("Nombre: " + encontrado.getNombre());
+                        tvNombre.setText(encontrado.getNombre());
                         tvNombre.setTextAppearance(registro_ped.this, R.style.TableCellText);
                         TextView tvCantidad = new TextView(registro_ped.this);
-                        tvCantidad.setText("Cant: " + String.valueOf(cant));
+                        tvCantidad.setText(String.valueOf(cant));
                         tvCantidad.setTextAppearance(registro_ped.this, R.style.TableCellText);
 
                         // Botón eliminar
