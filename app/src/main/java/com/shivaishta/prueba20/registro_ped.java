@@ -1,6 +1,8 @@
 package com.shivaishta.prueba20;
 
 import android.app.Dialog;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +14,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.ColorInt;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -51,7 +54,17 @@ public class registro_ped extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
-        //Cliente de Prueba
+        //Objetos de Prueba
+        new Producto("pan", "panadería", 2500, 2000, 2);
+        new Producto("leche", "lácteos", 3800, 3200, 3);
+        new Producto("huevos", "granja", 12000, 10000, 2);
+        new Producto("arroz", "granos", 5400, 4700, 4);
+        new Producto("aceite", "despensa", 9800, 8900, 5);
+        new Producto("azúcar", "despensa", 4500, 4000, 4);
+        new Producto("queso", "lácteos", 7500, 6500, 3);
+        new Producto("pollo", "carnes", 16000, 14000, 6);
+        new Producto("tomate", "verduras", 2500, 1800, 1);
+        new Producto("jabón", "aseo", 2200, 1800, 2);
         new Cliente("Paco", "3132889999", "Calle 10 #10", "No");
 
         //Boton registrar
@@ -264,15 +277,25 @@ public class registro_ped extends AppCompatActivity {
                         // Tabla Productos
                         TableLayout tabla = findViewById(R.id.tablaProductos);
                         TableRow fila = new TableRow(registro_ped.this);
+                        fila.setPadding(0, 8, 0, 8);
 
                         TextView tvNombre = new TextView(registro_ped.this);
                         tvNombre.setText(encontrado.getNombre());
+                        tvNombre.setTextAppearance(registro_ped.this, R.style.TableCellText);
                         TextView tvCantidad = new TextView(registro_ped.this);
                         tvCantidad.setText(String.valueOf(cant));
+                        tvCantidad.setTextAppearance(registro_ped.this, R.style.TableCellText);
 
                         // Botón eliminar
                         Button btnEliminar = new Button(registro_ped.this);
                         btnEliminar.setText("X");
+                        btnEliminar.setBackgroundResource(R.drawable.button_red_circle);
+                        btnEliminar.setTextColor(Color.WHITE);
+                        TableRow.LayoutParams params = new TableRow.LayoutParams(
+                                dpToPx(40),  // ancho
+                                dpToPx(40)); // alto
+                        btnEliminar.setLayoutParams(params);
+                        btnEliminar.setTextSize(12f);
                         btnEliminar.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -305,6 +328,11 @@ public class registro_ped extends AppCompatActivity {
 
         });
         dialog.show();
+    }
+
+    private int dpToPx(int dp) {
+        float density = getResources().getDisplayMetrics().density;
+        return Math.round((float) dp * density);
     }
 
 }
