@@ -16,7 +16,7 @@
         android:layout_height="48dp"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:contentDescription="Volver atrás"
-        android:src="@drawable/ic_backBlue"
+        android:src="@drawable/ic_back_blue"
         tools:layout_editor_absoluteX="-2dp"
         tools:layout_editor_absoluteY="3dp" />
 
