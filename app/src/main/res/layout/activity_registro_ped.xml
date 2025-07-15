@@ -61,34 +61,13 @@
             android:stretchColumns="*" />
     </ScrollView>
 
-    <!-- Cantidad -->
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cantidad"
-        app:layout_constraintTop_toBottomOf="@id/scrollTabla"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="16dp" />
-
-    <EditText
-        android:id="@+id/editTextText2"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@id/textView8"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginHorizontal="16dp" />
-
     <!-- Cliente -->
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cliente"
-        app:layout_constraintTop_toBottomOf="@id/editTextText2"
+        app:layout_constraintTop_toBottomOf="@id/scrollTabla"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="12dp"
         android:layout_marginStart="16dp" />
@@ -137,10 +116,10 @@
         android:layout_marginBottom="16dp" />
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/confirm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Volver"
+        android:text="Confirmar"
         app:layout_constraintTop_toTopOf="@+id/button7"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginEnd="16dp" />

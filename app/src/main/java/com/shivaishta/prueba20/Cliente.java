@@ -1,8 +1,10 @@
 package com.shivaishta.prueba20;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Cliente implements Serializable {
+    public static ArrayList<Cliente> clientes = new ArrayList<>();
     private String nombre;
     private String telefono;
     private String direccion;
@@ -13,6 +15,7 @@ public class Cliente implements Serializable {
         this.telefono = telefono;
         this.direccion = direccion;
         this.motivoUrgencia = motivoUrgencia;
+        clientes.add(this);
     }
 
     // Getters
