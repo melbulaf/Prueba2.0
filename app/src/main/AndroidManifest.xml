@@ -13,6 +13,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Prueba20">
         <activity
+            android:name=".ProductosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClientesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroClienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".VentasActivity"
             android:exported="false" />
         <activity

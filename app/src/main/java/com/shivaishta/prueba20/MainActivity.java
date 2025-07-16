@@ -61,6 +61,16 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Boton Productos
+        CardView cardProductos = findViewById(R.id.cardProductos);
+        cardProductos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ProductosActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Otros botones (mantienen Toast temporal)
         CardView cardClientes = findViewById(R.id.cardFunc3);
         cardClientes.setOnClickListener(new View.OnClickListener() {
