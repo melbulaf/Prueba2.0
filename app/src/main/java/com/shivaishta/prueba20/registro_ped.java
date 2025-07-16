@@ -98,7 +98,7 @@ public class registro_ped extends AppCompatActivity {
         new Producto("pollo", "carnes", 16000, 14000, 6);
         new Producto("tomate", "verduras", 2500, 1800, 1);
         new Producto("jabón", "aseo", 2200, 1800, 2);
-        new Cliente("Paco", "3132889999", "Calle 10 #10", "No");
+        Cliente.agregarCliente(new Cliente("Paco", "3132889999", "Calle 10 #10", "No"));
 
         //Boton registrar
         bregped = findViewById(R.id.button7);
@@ -110,7 +110,7 @@ public class registro_ped extends AppCompatActivity {
                 EditText nombrecliente = findViewById(R.id.editTextText3);
                 String cliente = nombrecliente.getText().toString();
                 Cliente clienteobj = null;
-                for (Cliente c : Cliente.clientes) {
+                for (Cliente c : Cliente.getClientes()) {
                     if (c.getNombre().equalsIgnoreCase(cliente)) {
                         clienteobj = c;
                         break;
@@ -183,7 +183,7 @@ public class registro_ped extends AppCompatActivity {
                 EditText nombrecliente = findViewById(R.id.editTextText3);
                 String cliente = nombrecliente.getText().toString();
                 Cliente clienteobj = null;
-                for (Cliente c : Cliente.clientes) {
+                for (Cliente c : Cliente.getClientes()) {
                     if (c.getNombre().equalsIgnoreCase(cliente)) {
                         clienteobj = c;
                         break;

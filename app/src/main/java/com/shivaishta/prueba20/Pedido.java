@@ -99,7 +99,7 @@ public class Pedido implements Serializable {
                 String confirmado = partes[3];
                 boolean conf = Boolean.parseBoolean(confirmado);
                 Cliente encontrado = null;
-                for (Cliente c : Cliente.clientes) {
+                for (Cliente c : Cliente.getClientes()) {
                     if (c.getNombre().equals(cliente)) {
                         encontrado = c;
                         break;
