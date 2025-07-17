@@ -1,109 +1,109 @@
 package com.shivaishta.prueba20;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
+import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
+import java.util.ArrayList;
 import java.util.List;
 
 public class ClientesActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerClientes;
-    private ClienteAdapter clienteAdapter;
+    private ListView listView;
+    private ArrayAdapter<String> adapter;
+    private List<Cliente> clientes = Cliente.getClientes();
+    private Button btnAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clientes);
-
-        // Cargar los clientes desde almacenamiento
         Cliente.cargarClientes(this);
+        listView = findViewById(R.id.listaClientes);
+        btnAgregar = findViewById(R.id.btnAgregarCliente);;
 
-        recyclerClientes = findViewById(R.id.recyclerClientes);
-        recyclerClientes.setLayoutManager(new LinearLayoutManager(this));
-        clienteAdapter = new ClienteAdapter(Cliente.getClientes());
-        recyclerClientes.setAdapter(clienteAdapter);
+        actualizarLista();
 
-        // Botón volver
-        ImageButton btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> finish());
+        btnAgregar.setOnClickListener(v -> mostrarDialogoCliente(null));
 
-        // Botón Agregar
-        findViewById(R.id.btnAgregarCliente).setOnClickListener(v -> mostrarDialogoCliente(null));
-
-        // Botón Editar
-        findViewById(R.id.btnEditarCliente).setOnClickListener(v -> {
-            List<Cliente> lista = Cliente.getClientes();
-            if (!lista.isEmpty()) {
-                mostrarDialogoCliente(lista.get(0)); // Editar el primer cliente como ejemplo
-            } else {
-                Toast.makeText(this, "No hay clientes para editar", Toast.LENGTH_SHORT).show();
-            }
+        listView.setOnItemClickListener((parent, view, position, id) -> {
+            Cliente seleccionado = clientes.get(position);
+            mostrarDialogoCliente(seleccionado);
         });
 
-        // Botón Eliminar
-        findViewById(R.id.btnEliminarCliente).setOnClickListener(v -> {
-            List<Cliente> lista = Cliente.getClientes();
-            if (!lista.isEmpty()) {
-                Cliente cliente = lista.get(0); // Eliminar el primero como ejemplo
-                Cliente.eliminarCliente(cliente);
-                clienteAdapter.notifyDataSetChanged();
-                Cliente.guardarClientes(this);
-                Toast.makeText(this, "Cliente eliminado", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "No hay clientes para eliminar", Toast.LENGTH_SHORT).show();
-            }
+        listView.setOnItemLongClickListener((parent, view, position, id) -> {
+            Cliente cliente = clientes.get(position);
+            new AlertDialog.Builder(this)
+                    .setTitle("Eliminar cliente")
+                    .setMessage("¿Deseas eliminar a " + cliente.getNombre() + "?")
+                    .setPositiveButton("Sí", (dialog, which) -> {
+                        clientes.remove(cliente);
+                        actualizarLista();
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
+            return true;
         });
     }
 
+    private void actualizarLista() {
+        ArrayList<String> nombres = new ArrayList<>();
+        for (Cliente c : clientes) {
+            nombres.add(c.getNombre() + " - " + c.getTelefono());
+        }
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nombres);
+        listView.setAdapter(adapter);
+    }
+
     private void mostrarDialogoCliente(Cliente clienteEditar) {
-        View dialogView = getLayoutInflater().inflate(R.layout.dialogo_cliente, null);
-        EditText etNombre = dialogView.findViewById(R.id.etNombre);
-        EditText etTelefono = dialogView.findViewById(R.id.etTelefono);
-        EditText etDireccion = dialogView.findViewById(R.id.etDireccion);
-        EditText etUrgencia = dialogView.findViewById(R.id.etUrgencia);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        View vista = inflater.inflate(R.layout.dialogo_cliente, null);
+
+        EditText txtNombre = vista.findViewById(R.id.dialogNombre);
+        EditText txtTelefono = vista.findViewById(R.id.dialogTelefono);
+        EditText txtDireccion = vista.findViewById(R.id.dialogDireccion);
+        EditText txtUrgencia = vista.findViewById(R.id.dialogUrgencia);
 
         if (clienteEditar != null) {
-            etNombre.setText(clienteEditar.getNombre());
-            etTelefono.setText(clienteEditar.getTelefono());
-            etDireccion.setText(clienteEditar.getDireccion());
-            etUrgencia.setText(clienteEditar.getUrgencia());
+            txtNombre.setText(clienteEditar.getNombre());
+            txtTelefono.setText(clienteEditar.getTelefono());
+            txtDireccion.setText(clienteEditar.getDireccion());
+            txtUrgencia.setText(clienteEditar.getMotivoUrgencia());
         }
 
-        new AlertDialog.Builder(this)
-                .setTitle(clienteEditar == null ? "Agregar Cliente" : "Editar Cliente")
-                .setView(dialogView)
-                .setPositiveButton("Guardar", (dialog, which) -> {
-                    String nombre = etNombre.getText().toString().trim();
-                    String telefono = etTelefono.getText().toString().trim();
-                    String direccion = etDireccion.getText().toString().trim();
-                    String urgencia = etUrgencia.getText().toString().trim();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(clienteEditar == null ? "Nuevo Cliente" : "Editar Cliente");
+        builder.setView(vista);
 
-                    if (nombre.isEmpty() || telefono.isEmpty()) {
-                        Toast.makeText(this, "Nombre y Teléfono son obligatorios", Toast.LENGTH_SHORT).show();
-                        return;
-                    }
+        builder.setPositiveButton("Guardar", (dialog, which) -> {
+            String nombre = txtNombre.getText().toString().trim();
+            String tel = txtTelefono.getText().toString().trim();
+            String dir = txtDireccion.getText().toString().trim();
+            String urg = txtUrgencia.getText().toString().trim();
 
-                    if (clienteEditar != null) {
-                        clienteEditar.setNombre(nombre);
-                        clienteEditar.setTelefono(telefono);
-                        clienteEditar.setDireccion(direccion);
-                        clienteEditar.setUrgencia();
-                    } else {
-                        Cliente.agregarCliente(new Cliente(nombre, telefono, direccion, urgencia));
-                    }
+            if (nombre.isEmpty() || tel.isEmpty() || dir.isEmpty()) {
+                Toast.makeText(this, "Faltan datos", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-                    Cliente.guardarClientes(this);
-                    clienteAdapter.notifyDataSetChanged();
-                })
-                .setNegativeButton("Cancelar", null)
-                .show();
+            if (clienteEditar != null) {
+                clienteEditar.setNombre(nombre);
+                clienteEditar.setTelefono(tel);
+                clienteEditar.setDireccion(dir);
+                clienteEditar.setMotivoUrgencia(urg);
+            } else {
+                new Cliente(nombre, tel, dir, urg);
+                Cliente.agregarCliente(new Cliente(nombre, tel, dir, urg));
+            }
+            Cliente.guardarClientes(this);
+            actualizarLista();
+        });
+
+        builder.setNegativeButton("Cancelar", null);
+        builder.show();
     }
 }

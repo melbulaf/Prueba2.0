@@ -2,13 +2,11 @@ package com.shivaishta.prueba20;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.HorizontalScrollView;
-import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -20,73 +18,65 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHolder> {
+public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosViewHolder> {
 
-    private List<Pedido> ventas;
+    private List<Pedido> pedidos;
     private Context context;
 
-    public VentaAdapter(Context context, List<Pedido> listaFiltrada) {
+    public PedidosAdapter(Context context) {
         this.context = context;
-        this.ventas = listaFiltrada;
-    }
-
-    public VentaAdapter(Context context) {
-        this.context = context;
-        this.ventas = new ArrayList<>();
+        this.pedidos = new ArrayList<>();
         for (Pedido p : Pedido.pedidos) {
-            if (p.getConfirmado()) {
-                ventas.add(p);
+            if (!p.getConfirmado()) {
+                pedidos.add(p);
             }
         }
     }
 
     @NonNull
     @Override
-    public VentaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_venta, parent, false);
-        return new VentaViewHolder(view);
+    public PedidosViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_pedido, parent, false);
+        return new PedidosViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull VentaViewHolder holder, int position) {
-        Pedido pedido = ventas.get(position);
+    public void onBindViewHolder(@NonNull PedidosViewHolder holder, int position) {
+        Pedido pedido = pedidos.get(position);
 
         int total = 0;
         int totalCantidad = 0;
 
-        // Calcular total y total de productos vendidos
         for (String pp : pedido.getProductos()) {
             String[] partes = pp.split("_");
+            if (partes.length != 2) continue;
+
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
 
             for (Producto p : Producto.productos) {
                 if (p.getCodigo() == codigo) {
-                    total += p.getPrecioV() * cant;
+                    total += p.getPrecio() * cant;
                     totalCantidad += cant;
                     break;
                 }
             }
         }
 
-        holder.txtClienteVenta.setText(pedido.getCliente().getNombre());
-        holder.txtCantidadVenta.setText(String.valueOf(totalCantidad));
-        holder.txtFechaVenta.setText(pedido.getFecha());
-        holder.txtTotalVenta.setText(String.valueOf(total));
+        holder.txtCliente.setText(pedido.getCliente().getNombre());
+        holder.txtCantidad.setText(String.valueOf(totalCantidad));
+        holder.txtFecha.setText(pedido.getFecha());
+        holder.txtTotal.setText(String.valueOf(total));
 
         holder.btnVerProductos.setOnClickListener(v -> mostrarDialogoProductos(pedido));
 
-        // Configurar botón de factura solo si está confirmado
-        if (pedido.getConfirmado()) {
-            holder.btnFactura.setVisibility(View.VISIBLE);
-            holder.btnFactura.setOnClickListener(v -> {
-                Intent intent = new Intent(context, FacturaActivity.class);
-                intent.putExtra("pedido", pedido);
-                context.startActivity(intent);
-            });
-        } else {
-            holder.btnFactura.setVisibility(View.GONE);
-        }
+        holder.btnConfirmar.setOnClickListener(v -> {
+            pedido.confirmar();
+            pedidos.remove(position);
+            notifyItemRemoved(position);
+            notifyItemRangeChanged(position, pedidos.size());
+            Pedido.guardarPed(context);
+        });
     }
 
     private void mostrarDialogoProductos(Pedido pedido) {
@@ -106,23 +96,20 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
 
         for (String pp : pedido.getProductos()) {
             String[] partes = pp.split("_");
+            if (partes.length != 2) continue;
+
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
-            Producto productoEncontrado = null;
 
             for (Producto p : Producto.productos) {
                 if (p.getCodigo() == codigo) {
-                    productoEncontrado = p;
+                    TableRow fila = new TableRow(context);
+                    fila.addView(createDataCell(String.valueOf(p.getCodigo())));
+                    fila.addView(createDataCell(p.getNombre()));
+                    fila.addView(createDataCell(String.valueOf(cant)));
+                    table.addView(fila);
                     break;
                 }
-            }
-
-            if (productoEncontrado != null) {
-                TableRow fila = new TableRow(context);
-                fila.addView(createDataCell(String.valueOf(productoEncontrado.getCodigo())));
-                fila.addView(createDataCell(productoEncontrado.getNombre()));
-                fila.addView(createDataCell(String.valueOf(cant)));
-                table.addView(fila);
             }
         }
 
@@ -154,21 +141,21 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
 
     @Override
     public int getItemCount() {
-        return ventas.size();
+        return pedidos.size();
     }
 
-    static class VentaViewHolder extends RecyclerView.ViewHolder {
-        TextView txtClienteVenta, txtCantidadVenta, txtFechaVenta, txtTotalVenta;
-        Button btnVerProductos, btnFactura;
+    static class PedidosViewHolder extends RecyclerView.ViewHolder {
+        TextView txtCliente, txtCantidad, txtFecha, txtTotal;
+        Button btnVerProductos, btnConfirmar;
 
-        public VentaViewHolder(@NonNull View itemView) {
+        public PedidosViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtClienteVenta = itemView.findViewById(R.id.txtClienteVenta);
-            txtCantidadVenta = itemView.findViewById(R.id.txtCantidadVenta);
-            txtFechaVenta = itemView.findViewById(R.id.txtFechaVenta);
-            txtTotalVenta = itemView.findViewById(R.id.txtTotalVenta);
-            btnVerProductos = itemView.findViewById(R.id.btnVerProductos);
-            btnFactura = itemView.findViewById(R.id.btnFactura);
+            txtCliente = itemView.findViewById(R.id.txtClientePedido);
+            txtCantidad = itemView.findViewById(R.id.txtCantidadPedido);
+            txtFecha = itemView.findViewById(R.id.txtFechaPedido);
+            txtTotal = itemView.findViewById(R.id.txtTotalPedido);
+            btnVerProductos = itemView.findViewById(R.id.btnVerProductosPed);
+            btnConfirmar = itemView.findViewById(R.id.btnConfirm);
         }
     }
 }

@@ -45,7 +45,6 @@ public class Pedido implements Serializable {
     public String getFecha() { return fecha; }
     public boolean getConfirmado() {return confirmado;}
     public void confirmar() {
-        this.confirmado = true;
         for (String ped : this.productos) {
             String[] partes = ped.split("_");
             if (partes.length != 2) continue;
@@ -59,7 +58,8 @@ public class Pedido implements Serializable {
                 }
             }
             if (encontrado != null) {
-            encontrado.setCantidad(encontrado.getCantidad() + cantidad); }
+                this.confirmado = true;
+                encontrado.setCantidad(encontrado.getCantidad() - cantidad);}
         }
     }
 
