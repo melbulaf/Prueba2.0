@@ -53,4 +53,9 @@ public class Producto implements Serializable {
     public void setPrecio(double precio) { this.precio = precio; }
     public void setCantidad(int cantidad) {this.cantidad = cantidad;}
     public void setCategoria(String categoria) { this.categoria = categoria; }
+
+    @Override
+    public String toString() {
+        return this.codigo  + " " + this.nombre;
+    }
 }
