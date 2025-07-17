@@ -87,6 +87,19 @@ public class registro_ped extends AppCompatActivity {
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
+        //Objetos de Prueba
+        new Producto("pan", "panadería", 2500, 2000, 2);
+        new Producto("leche", "lácteos", 3800, 3200, 3);
+        new Producto("huevos", "granja", 12000, 10000, 2);
+        new Producto("arroz", "granos", 5400, 4700, 4);
+        new Producto("aceite", "despensa", 9800, 8900, 5);
+        new Producto("azúcar", "despensa", 4500, 4000, 4);
+        new Producto("queso", "lácteos", 7500, 6500, 3);
+        new Producto("pollo", "carnes", 16000, 14000, 6);
+        new Producto("tomate", "verduras", 2500, 1800, 1);
+        new Producto("jabón", "aseo", 2200, 1800, 2);
+        Cliente.agregarCliente(new Cliente("Paco", "3132889999", "Calle 10 #10", "No"));
+
         //Boton registrar
         bregped = findViewById(R.id.button7);
         bregped.setOnClickListener(new View.OnClickListener() {
@@ -149,7 +162,6 @@ public class registro_ped extends AppCompatActivity {
                         android.widget.Toast.makeText(registro_ped.this,
                                 "Pedido Registrado Exitosamente.",
                                 android.widget.Toast.LENGTH_LONG).show();
-                        setResult(RESULT_OK);
                         finish();
 
                 } else {

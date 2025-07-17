@@ -60,6 +60,29 @@ public class InventarioActivity extends AppCompatActivity{
 
         Inventario InstanciaDeInventario = Inventario.getInstancia();
 
+        if (InstanciaDeInventario.obtenerProductos().isEmpty()) {
+            InstanciaDeInventario.agregarProducto(new Producto("pan", "panaderia", 2500, 2000, 2));
+            InstanciaDeInventario.agregarProducto(new Producto("banano", "frutas", 700, 400, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("queso", "lacteos", 7000, 5000, 1));
+            InstanciaDeInventario.agregarProducto(new Producto("leche", "lacteos", 4500, 3500, 2));
+            InstanciaDeInventario.agregarProducto(new Producto("manzana", "frutas", 1200, 800, 5));
+            InstanciaDeInventario.agregarProducto(new Producto("tomate", "verduras", 900, 600, 6));
+            InstanciaDeInventario.agregarProducto(new Producto("arroz", "granos", 3000, 2500, 4));
+            InstanciaDeInventario.agregarProducto(new Producto("harina", "granos", 2800, 2300, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("mantequilla", "lacteos", 5500, 4500, 1));
+            InstanciaDeInventario.agregarProducto(new Producto("pollo", "carnes", 10000, 8000, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("carne molida", "carnes", 12000, 9500, 2));
+            InstanciaDeInventario.agregarProducto(new Producto("yogur", "lacteos", 3200, 2500, 5));
+            InstanciaDeInventario.agregarProducto(new Producto("café", "bebidas", 8500, 7000, 2));
+            InstanciaDeInventario.agregarProducto(new Producto("jugo de naranja", "bebidas", 4000, 3000, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("huevos", "lacteos", 6000, 5000, 6));
+            InstanciaDeInventario.agregarProducto(new Producto("galletas", "panaderia", 2500, 2000, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("azúcar", "granos", 2700, 2200, 4));
+            InstanciaDeInventario.agregarProducto(new Producto("sal", "granos", 1000, 700, 3));
+            InstanciaDeInventario.agregarProducto(new Producto("zanahoria", "verduras", 800, 500, 5));
+            InstanciaDeInventario.agregarProducto(new Producto("cebolla", "verduras", 1100, 750, 6));
+        }
+
         ArrayList<String> filtros = new ArrayList<>();
         filtros.add("Cantidad");
         filtros.add("Categoría");

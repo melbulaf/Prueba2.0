@@ -331,21 +331,4 @@
             app:layout_constraintTop_toTopOf="parent" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/textView8"
-        android:text="INVENTARIO"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:fontFamily="casual"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textAlignment="center"
-        android:layout_marginTop="1dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent="0.04"
-        app:layout_constraintHorizontal_bias="0.99"
-        app:layout_constraintWidth_percent="0.37" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

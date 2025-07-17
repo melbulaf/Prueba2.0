@@ -39,14 +39,13 @@
                     android:fontFamily="casual"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
-
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="casual"
-                    android:text="a LucitApp"
+                    android:text="a SeeKey"
+                    android:textSize="16sp"
                     android:textColor="@android:color/white"
-                    android:textSize="16sp" />
+                    android:fontFamily="casual"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -60,9 +59,42 @@
             android:useDefaultMargins="true"
             android:layout_marginTop="20dp">
 
-            <!-- Botón Inventario (now first) -->
+            <!-- Botón Ruta -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardInventario"
+                android:id="@+id/cardRuta"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="7dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/logo2"
+                        android:contentDescription="Logo Ruta"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Ruta"
+                        android:textColor="#2C3E50"
+                        android:fontFamily="casual"
+                        android:textSize="20sp"
+                        android:layout_marginTop="7dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Botón Funcionalidad 2 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFunc2"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_columnWeight="1"
@@ -79,11 +111,11 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:src="@drawable/logo2"
-                        android:contentDescription="Logo Inventario"/>
+                        android:contentDescription="Logo Ruta"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Inventario"
+                        android:text="Facturación"
                         android:textColor="#2C3E50"
                         android:fontFamily="casual"
                         android:textSize="20sp"
@@ -91,38 +123,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Botón Productos -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/cardProductos"
-                android:layout_width="0dp"
-                android:layout_height="160dp"
-                android:layout_columnWeight="1"
-                app:cardCornerRadius="22dp"
-                app:cardElevation="7dp"
-                app:cardBackgroundColor="@android:color/white"
-                android:layout_margin="12dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-                    <ImageView
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:src="@drawable/logo2"
-                        android:contentDescription="Logo Productos"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Productos"
-                        android:textColor="#2C3E50"
-                        android:fontFamily="casual"
-                        android:textSize="20sp"
-                        android:layout_marginTop="7dp"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Botón Clientes -->
+            <!-- Botón Funcionalidad 3 -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardFunc3"
                 android:layout_width="0dp"
@@ -141,7 +142,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:src="@drawable/logo2"
-                        android:contentDescription="Logo Clientes"/>
+                        android:contentDescription="Logo Ruta"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -153,7 +154,7 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Botón Pedidos -->
+            <!-- Botón Funcionalidad 4 -->
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardFunc4"
                 android:layout_width="0dp"
@@ -172,7 +173,8 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:src="@drawable/logo2"
-                        android:contentDescription="Logo Pedidos"/>
+                        android:contentDescription="Logo Ruta"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -181,6 +183,37 @@
                         android:text="Pedidos"
                         android:textColor="#2C3E50"
                         android:textSize="20sp" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Botón Funcionalidad 5 -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardFunc5"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="7dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_margin="12dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/logo2"
+                        android:contentDescription="Logo Ruta"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Configuración"
+                        android:textColor="#2C3E50"
+                        android:fontFamily="casual"
+                        android:textSize="20sp"
+                        android:layout_marginTop="7dp"/>
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
@@ -203,7 +236,7 @@
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:src="@drawable/logo2"
-                        android:contentDescription="Logo Compras"/>
+                        android:contentDescription="Logo Ruta"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -215,9 +248,9 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- Botón Ruta (now last) -->
+            <!-- Botón Inventario -->
             <androidx.cardview.widget.CardView
-                android:id="@+id/cardRuta"
+                android:id="@+id/cardInventario"
                 android:layout_width="0dp"
                 android:layout_height="160dp"
                 android:layout_columnWeight="1"
@@ -238,7 +271,40 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Ruta"
+                        android:text="Inventario"
+                        android:textColor="#2C3E50"
+                        android:fontFamily="casual"
+                        android:textSize="20sp"
+                        android:layout_marginTop="7dp"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Botón Productos -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardProductos"
+                android:layout_width="0dp"
+                android:layout_height="160dp"
+                android:layout_columnWeight="1"
+                app:cardCornerRadius="22dp"
+                app:cardElevation="7dp"
+                app:cardBackgroundColor="@android:color/white"
+                android:layout_margin="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:src="@drawable/logo2"
+                        android:contentDescription="Logo Productos"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Productos"
                         android:textColor="#2C3E50"
                         android:fontFamily="casual"
                         android:textSize="20sp"

@@ -1,158 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    card_view:cardCornerRadius="16dp"
-    card_view:cardElevation="8dp"
-    android:minHeight="64dp">
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvCliente"
+        android:layout_width="0dp"
+        android:layout_weight="1.5"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:textSize="16sp"
+        android:drawablePadding="4dp"
+        tools:text="Cliente Ejemplo"/>
 
-        <!-- Encabezado -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="45dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:gravity="start"
-                android:text="Productos"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.2"
-                android:text="Nombre"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:gravity="start" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:text="Cant."
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:gravity="start" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:text="Fecha"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:gravity="start" />
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="Total"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:gravity="start" />
-
-            <TextView
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.4"
-                android:gravity="start"
-                android:text="Confirmar"
-                android:textSize="13sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
-        <!-- Fila de datos -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="6dp"
-            android:gravity="center_vertical">
-
-            <Button
-                android:id="@+id/btnVerProductosPed"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:layout_weight="1.2"
-                android:text="+"
-                android:textSize="13sp"
-                android:padding="0dp"
-                android:minWidth="0dp"
-                android:minHeight="0dp" />
-
-            <View
-                android:layout_width="44dp"
-                android:layout_height="match_parent" />
-
-            <TextView
-                android:id="@+id/txtClientePedido"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.2"
-                android:text="Cliente"
-                android:textSize="13sp"
-                android:gravity="start" />
-
-            <TextView
-                android:id="@+id/txtCantidadPedido"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.2"
-                android:text="--"
-                android:textSize="13sp"
-                android:gravity="start" />
-
-            <TextView
-                android:id="@+id/txtFechaPedido"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="2.5"
-                android:text="12/07/2025"
-                android:textSize="13sp"
-                android:gravity="start" />
-
-            <TextView
-                android:id="@+id/txtTotalPedido"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:text="--"
-                android:textSize="13sp"
-                android:gravity="start" />
-
-            <View
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/btnConfirm"
-                android:layout_width="0dp"
-                android:layout_height="36dp"
-                android:layout_weight="1.4"
-                android:drawableTop="@drawable/confirmvector"
-                android:drawablePadding="4dp"
-                android:text=""
-                android:minWidth="0dp"
-                android:minHeight="0dp" />
-
-            <View
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
-        </LinearLayout>
-    </LinearLayout>
-
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvDireccion"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:gravity="center"
+        tools:text="Calle 123 #45-67"/>
+</LinearLayout>

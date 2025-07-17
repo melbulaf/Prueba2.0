@@ -12,7 +12,7 @@ public class Inventario {
     public static Inventario instancia;
 
     public Inventario() {
-        productos = Producto.productos;
+        productos = new ArrayList<>();
     }
 
     public static Inventario getInstancia() {
