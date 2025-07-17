@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 List<String> productos = new ArrayList<>();
-                productos.add(String.valueOf(new Producto("Producto A", 2, 25000).getCodigo()) + "_" + "10");
-                productos.add(String.valueOf(new Producto("Producto B", 1, 50000).getCodigo()) + "_" + "10");
+                productos.add(String.valueOf(new Producto("Producto A", 2, 25000, 20000, "Ejemplo", 1200, false).getCodigo()) + "_10");
+                productos.add(String.valueOf(new Producto("Producto B", 1, 50000, 40000, "Ejemplo", 1002, false).getCodigo()) + "_10");
 
                 String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Boton Productos
+        // Botón Productos
         CardView cardProductos = findViewById(R.id.cardProductos);
         cardProductos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,15 +71,17 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Otros botones (mantienen Toast temporal)
+        // Botón clientes
         CardView cardClientes = findViewById(R.id.cardFunc3);
         cardClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "Clientes - En desarrollo", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ClientesActivity.class);
+                startActivity(intent);
             }
         });
 
+        // Otros botones (mantienen Toast temporal)
         CardView cardPedidos = findViewById(R.id.cardFunc4);
         cardPedidos.setOnClickListener(new View.OnClickListener() {
             @Override

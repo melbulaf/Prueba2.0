@@ -55,7 +55,6 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         // Agregar botón al layout
         LinearLayout containerBotones = findViewById(R.id.containerBotones);
         if (containerBotones == null) {
-            // Si no existe el contenedor, lo creamos
             containerBotones = new LinearLayout(this);
             containerBotones.setLayoutParams(new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
@@ -63,7 +62,6 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             containerBotones.setOrientation(LinearLayout.VERTICAL);
             containerBotones.setPadding(16, 16, 16, 16);
 
-            // Agregar al layout principal
             LinearLayout mainLayout = findViewById(R.id.mainLayout);
             mainLayout.addView(containerBotones);
         }
@@ -81,6 +79,8 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         if (pedido.getCliente().esUrgente()) {
             tvInfoUrgencia.setVisibility(View.VISIBLE);
             tvInfoUrgencia.setText("¡PEDIDO URGENTE!");
+        } else {
+            tvInfoUrgencia.setVisibility(View.GONE);
         }
     }
 
@@ -88,14 +88,13 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         LinearLayout containerProductos = findViewById(R.id.containerProductos);
         double total = 0;
 
-        for (String p : pedido.getProductos()) { //partes[0] es el codigo del producto
-                                                 //partes [1] es la cantidad de ese prod.
+        for (String p : pedido.getProductos()) {
             String[] partes = p.split("_");
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
             Producto producto = null;
-            //obtener producto
-            for (Producto pp : Producto.productos) {
+
+            for (Producto pp : Producto.getProductos()) {
                 if (pp.getCodigo() == codigo) {
                     producto = pp;
                     break;
@@ -103,36 +102,35 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             }
 
             if (producto != null) {
-            // Calcular subtotal
-            double subtotal = producto.getPrecio() * cant;
-            total += subtotal;
+                double subtotal = producto.getPrecioV() * cant; // Usar precio de venta
+                total += subtotal;
 
-            // Crear TextView para el producto
-            TextView tvProducto = new TextView(this);
-            tvProducto.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
+                TextView tvProducto = new TextView(this);
+                tvProducto.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
 
-            tvProducto.setText(String.format(Locale.getDefault(),
-                    "• %s (Cantidad: %d)",
-                    producto.getNombre(),
-                    cant));
+                tvProducto.setText(String.format(Locale.getDefault(),
+                        "• %s (Cantidad: %d)",
+                        producto.getNombre(),
+                        cant));
 
-            tvProducto.setTextSize(16);
-            tvProducto.setTextColor(Color.parseColor("#333333"));
-            tvProducto.setPadding(8, 12, 8, 12);
+                tvProducto.setTextSize(16);
+                tvProducto.setTextColor(Color.parseColor("#333333"));
+                tvProducto.setPadding(8, 12, 8, 12);
 
-            // Separador
-            View separator = new View(this);
-            separator.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    1));
-            separator.setBackgroundColor(Color.parseColor("#E0E0E0"));
+                View separator = new View(this);
+                separator.setLayoutParams(new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT,
+                        1));
+                separator.setBackgroundColor(Color.parseColor("#E0E0E0"));
 
-            containerProductos.addView(tvProducto);
-            containerProductos.addView(separator);
-        } }
+                containerProductos.addView(tvProducto);
+                containerProductos.addView(separator);
+            }
+        }
     }
+
     private void abrirFacturaActivity() {
         Intent intent = new Intent(this, FacturaActivity.class);
         intent.putExtra("pedido", pedido);

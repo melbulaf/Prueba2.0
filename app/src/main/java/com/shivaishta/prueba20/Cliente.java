@@ -1,56 +1,71 @@
 package com.shivaishta.prueba20;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente implements Serializable {
+public class Cliente {
     private String nombre;
     private String telefono;
     private String direccion;
-    private String motivoUrgencia;
+    private String urgencia;
 
-    // Lista estática para mantener los clientes en memoria
     private static final List<Cliente> listaClientes = new ArrayList<>();
-    private static final String ARCHIVO = "clientes.txt";
 
     // Constructor
-    public Cliente(String nombre, String telefono, String direccion, String motivoUrgencia) {
+    public Cliente(String nombre, String telefono, String direccion, String urgencia) {
         this.nombre = nombre;
         this.telefono = telefono;
         this.direccion = direccion;
-        this.motivoUrgencia = motivoUrgencia;
+        this.urgencia = urgencia;
     }
 
-    // === Getters ===
-    public String getNombre() { return nombre; }
-    public String getTelefono() { return telefono; }
-    public String getDireccion() { return direccion; }
-    public String getMotivoUrgencia() { return motivoUrgencia; }
-    public boolean esUrgente() {
-        return motivoUrgencia != null && !motivoUrgencia.isEmpty();
+    // Getters
+    public String getNombre() {
+        return nombre;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public String getUrgencia() {
+        return urgencia;
+    }
+
+    // Método requerido en otras clases (como RutaActivity o Factura)
     public String getTelefonoInternacional() {
-        if (telefono != null && !telefono.isEmpty()) {
-            if (telefono.startsWith("+57")) return telefono.substring(1);
-            if (telefono.startsWith("57")) return telefono;
-            if (telefono.startsWith("0")) return "57" + telefono.substring(1);
-            return "57" + telefono;
+        // Convierte número nacional colombiano a formato internacional si comienza con '3'
+        if (telefono != null && telefono.length() == 10 && telefono.startsWith("3")) {
+            return "+57" + telefono;
         }
-        return "";
+        return telefono;
     }
-    // === Setters ===
-    public void setNombre(String nombre) { this.nombre = nombre; }
-    public void setTelefono(String telefono) { this.telefono = telefono; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
-    public void setMotivoUrgencia(String motivoUrgencia) { this.motivoUrgencia = motivoUrgencia; }
 
+    // Setters
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-    // === Acceso a la lista temporal ===
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+
+    public void setUrgencia(String urgencia) {
+        this.urgencia = urgencia;
+    }
+
+    // Métodos estáticos
     public static List<Cliente> getClientes() {
         return listaClientes;
     }
@@ -59,51 +74,37 @@ public class Cliente implements Serializable {
         listaClientes.add(c);
     }
 
-    public static boolean existeCliente(String telefono, String nombre) {
-        for (Cliente c : listaClientes) {
-            if (c.getTelefono().equals(telefono) || c.getNombre().equalsIgnoreCase(nombre)) {
-                return true;
-            }
-        }
-        return false;
+    public static void eliminarCliente(Cliente c) {
+        listaClientes.remove(c);
     }
 
-    // === Persistencia (guardar) ===
+    // Guardar clientes a archivo
     public static void guardarClientes(Context context) {
-        try {
-            FileOutputStream fos = context.openFileOutput(ARCHIVO, Context.MODE_PRIVATE);
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(fos));
-
+        File archivo = new File(context.getFilesDir(), "clientes.txt");
+        try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
             for (Cliente c : listaClientes) {
-                writer.write(c.nombre + "%%" + c.telefono + "%%" + c.direccion + "%%" + c.motivoUrgencia);
-                writer.newLine();
+                pw.println(c.nombre + "," + c.telefono + "," + c.direccion + "," + c.urgencia);
             }
-
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // === Carga desde archivo ===
+    // Cargar clientes desde archivo
     public static void cargarClientes(Context context) {
         listaClientes.clear();
-        try {
-            FileInputStream fis = context.openFileInput(ARCHIVO);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
-            String linea;
+        File archivo = new File(context.getFilesDir(), "clientes.txt");
+        if (!archivo.exists()) return;
 
-            while ((linea = reader.readLine()) != null) {
-                String[] partes = linea.split("%%");
-                if (partes.length == 4) {
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] partes = linea.split(",", -1);
+                if (partes.length >= 4) {
                     Cliente c = new Cliente(partes[0], partes[1], partes[2], partes[3]);
                     listaClientes.add(c);
                 }
             }
-
-            reader.close();
-        } catch (FileNotFoundException e) {
-            // El archivo aún no existe, no hay problema
         } catch (IOException e) {
             e.printStackTrace();
         }

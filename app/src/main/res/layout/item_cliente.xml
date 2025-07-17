@@ -15,46 +15,32 @@
         android:padding="12dp">
 
         <TextView
-            android:id="@+id/txtNombreProducto"
+            android:id="@+id/txtNombre"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nombre del producto"
+            android:text="Nombre"
             android:textStyle="bold"
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txtCodigoProducto"
+            android:id="@+id/txtTelefono"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Código: 123"
+            android:text="Teléfono"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtPrecioCompra"
+            android:id="@+id/txtDireccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio compra: $0"
+            android:text="Dirección"
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/txtPrecioVenta"
+            android:id="@+id/txtUrgencia"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Precio venta: $0"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtCantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cantidad: 0"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categoría: N/A"
+            android:text="Urgencia"
             android:textSize="14sp" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

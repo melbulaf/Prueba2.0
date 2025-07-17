@@ -28,7 +28,7 @@ public class Pedido implements Serializable {
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = false;;
-        pedidos.add(this);;
+        pedidos.add(this);
     }
 
     public Pedido(Cliente cliente, List<String> productos, String fecha, boolean estado) {
@@ -36,7 +36,7 @@ public class Pedido implements Serializable {
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = estado;
-        pedidos.add(this);;
+        pedidos.add(this);
     }
 
     // Getters
