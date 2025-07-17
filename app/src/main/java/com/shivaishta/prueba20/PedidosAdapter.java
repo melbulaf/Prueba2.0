@@ -75,7 +75,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
             pedidos.remove(position);
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, pedidos.size());
-            Pedido.guardarPed(context); // Opcional: guarda cambios tras confirmar
+            Pedido.guardarPed(context);
         });
     }
 
