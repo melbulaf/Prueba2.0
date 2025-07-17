@@ -48,52 +48,49 @@ public class RutaActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, d 'de' MMMM", new Locale("es", "ES"));
         tvFechaRuta.setText(sdf.format(new Date()));
 
-        List<Ruta> rutas = Ruta.rutasPorDefecto();
-        Ruta rutaDeHoy = Ruta.rutaDeHoy(rutas);
+        // Cargar pedidos desde archivo
+        Pedido.cargarPed(this);
 
-        // Para pruebas: descomentar para forzar un día específico
-        // rutaDeHoy = new Ruta("Prueba", "miércoles");
+        // Obtener pedidos para hoy no confirmados
+        String fechaHoy = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        List<Pedido> pedidosHoy = new ArrayList<>();
 
-        Log.d("RutaDebug", "Ruta de hoy: " + (rutaDeHoy != null ? rutaDeHoy.nombre : "null"));
+        for (Pedido p : Pedido.pedidos) {
+            if (p.getFecha().equals(fechaHoy) && !p.getConfirmado()) {
+                pedidosHoy.add(p);
+            }
+        }
 
-        if (rutaDeHoy != null) {
-            diaAbrev = abrevDiaHoy();
-            imgCount = getCantidadImagenes(diaAbrev);
-            imgResIds = getImgResIds(diaAbrev, imgCount);
+        diaAbrev = abrevDiaHoy();
+        imgCount = getCantidadImagenes(diaAbrev);
+        imgResIds = getImgResIds(diaAbrev, imgCount);
+        mostrarImagen();
+
+        imgRuta.setOnClickListener(v -> {
+            imgIndex = (imgIndex + 1) % imgCount;
             mostrarImagen();
+        });
 
-            imgRuta.setOnClickListener(v -> {
+        imgHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
                 imgIndex = (imgIndex + 1) % imgCount;
                 mostrarImagen();
-            });
-
-            imgHandler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    imgIndex = (imgIndex + 1) % imgCount;
-                    mostrarImagen();
-                    imgHandler.postDelayed(this, 4000);
-                }
-            }, 4000);
-
-            List<Pedido> pedidosHoy = obtenerPedidosPorDia(rutaDeHoy.dia);
-            Log.d("RutaDebug", "Pedidos encontrados: " + pedidosHoy.size());
-
-            if (!pedidosHoy.isEmpty()) {
-                tvTituloRuta.setText("Ruta del día: " + rutaDeHoy.nombre);
-                recyclerPedidos.setLayoutManager(new LinearLayoutManager(this));
-                recyclerPedidos.setAdapter(new PedidoAdapter(pedidosHoy, pedido -> {
-                    Intent intent = new Intent(this, DetallesPedidoActivity.class);
-                    intent.putExtra("pedido", pedido);
-                    startActivity(intent);
-                }));
-                cardPedidos.setVisibility(View.VISIBLE);
-            } else {
-                tvTituloRuta.setText("NO HAY ENTREGAS");
-                recyclerPedidos.setAdapter(null);
-                cardPedidos.setVisibility(View.VISIBLE);
+                imgHandler.postDelayed(this, 4000);
             }
+        }, 4000);
 
+        if (!pedidosHoy.isEmpty()) {
+            String diaHoy = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(new Date());
+            tvTituloRuta.setText("Ruta del día: " + diaHoy);
+
+            recyclerPedidos.setLayoutManager(new LinearLayoutManager(this));
+            recyclerPedidos.setAdapter(new PedidoAdapter(pedidosHoy, pedido -> {
+                Intent intent = new Intent(this, DetallesPedidoActivity.class);
+                intent.putExtra("pedido", pedido);
+                startActivity(intent);
+            }));
+            cardPedidos.setVisibility(View.VISIBLE);
         } else {
             String diaTexto = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(new Date());
             tvTituloRuta.setText("NO HAY ENTREGAS HOY (" + diaTexto.toUpperCase() + ")");
@@ -146,47 +143,6 @@ public class RutaActivity extends AppCompatActivity {
         } catch (Exception e) {
             Log.e("RutaActivity", "Error al mostrar imagen", e);
         }
-    }
-
-    private List<Pedido> obtenerPedidosPorDia(String dia) {
-        List<Pedido> pedidos = new ArrayList<>();
-        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        String diaNormalizado = Ruta.normalizaDia(dia);
-
-        switch (diaNormalizado) {
-            case "lunes":
-                pedidos.add(new Pedido(
-                        new Cliente("Lucía Díaz", "3101112233", "Calle 1 #23-45", "Entrega rápida"),
-                        List.of(String.valueOf(new Producto("Chocolatina", 10, 1.0).getCodigo()) + "_" + "10"),
-                        fecha));
-                break;
-
-            case "martes":
-                pedidos.add(new Pedido(
-                        new Cliente("Marco Pérez", "3122674001", "Cra 12 #30-10", ""),
-                        List.of(String.valueOf(new Producto("Galletas", 5, 2.0).getCodigo()) + "_" + "10"),
-                        fecha));
-                pedidos.add(new Pedido(
-                        new Cliente("Sara Gómez", "3009876543", "Transv 19 #6-45", null),
-                        List.of(String.valueOf(new Producto("Caramelos", 50, 0.2).getCodigo()) + "_" + "10"),
-                        fecha));
-                break;
-
-            case "miercoles":
-                pedidos.add(new Pedido(
-                        new Cliente("Luis Torres", "3112223333", "Cl. 100 #20-30", "Urgente"),
-                        List.of(String.valueOf(new Producto("Paletas", 30, 1.2).getCodigo()) + "_" + "10"),
-                        fecha));
-                break;
-
-            case "sabado":
-                pedidos.add(new Pedido(
-                        new Cliente("Mariana Castro", "3119991111", "Cll 50 #10-22", null),
-                        List.of(String.valueOf(new Producto("Chocorramo", 12, 1.5).getCodigo()) + "_" + "10"),
-                        fecha));
-                break;
-        }
-        return pedidos;
     }
 
     @Override

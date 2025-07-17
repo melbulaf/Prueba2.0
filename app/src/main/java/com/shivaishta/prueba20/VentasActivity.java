@@ -19,8 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import java.util.Calendar;
 import java.util.List;
-
-import java.util.List;
+import java.util.ArrayList;
 
 public class VentasActivity extends AppCompatActivity {
 
@@ -40,18 +39,25 @@ public class VentasActivity extends AppCompatActivity {
             return insets;
         });
 
-        //configura recyclerview
+        // Configurar recyclerView solo con pedidos confirmados
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVentas);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        //llamar al adaptador
-        VentaAdapter adapter = new VentaAdapter(this);
+
+        List<Pedido> pedidosConfirmados = new ArrayList<>();
+        for (Pedido p : Pedido.pedidos) {
+            if (p.getConfirmado()) {
+                pedidosConfirmados.add(p);
+            }
+        }
+
+        VentaAdapter adapter = new VentaAdapter(this, pedidosConfirmados);
         recyclerView.setAdapter(adapter);
 
-        //Boton volver
+        // Botón volver
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
-        //Boton filtros
+        // Botón filtros
         bfiltros = findViewById(R.id.filtrarventa);
         bfiltros.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +67,6 @@ public class VentasActivity extends AppCompatActivity {
         });
     }
 
-//dialog filtros
     void showDialogFiltros() {
         final Dialog dialog = new Dialog(VentasActivity.this);
         RecyclerView recyclerView = findViewById(R.id.recyclerViewVentas);
@@ -69,7 +74,7 @@ public class VentasActivity extends AppCompatActivity {
         dialog.setCancelable(true);
         dialog.setContentView(R.layout.filtrosvdialog);
 
-        //Initializing the views of the dialog.
+        // Initializing the views of the dialog.
         final EditText idnombre = dialog.findViewById(R.id.idnombrefiltros);
         final EditText edfecha = dialog.findViewById(R.id.etfecha);
         Button fecha = dialog.findViewById(R.id.fecha);
@@ -107,7 +112,7 @@ public class VentasActivity extends AppCompatActivity {
                 String textoFiltro = idnombre.getText().toString().trim().toLowerCase();
                 String fechaFiltro = edfecha.getText().toString().trim();
 
-                List<Pedido> listaFiltrada = new java.util.ArrayList<>();
+                List<Pedido> listaFiltrada = new ArrayList<>();
                 boolean seEncontraronCoincidencias = false;
 
                 for (Pedido p : Pedido.pedidos) {
@@ -143,16 +148,20 @@ public class VentasActivity extends AppCompatActivity {
             public void onClick(View v) {
                 idnombre.setText("");
                 edfecha.setText("");
-                VentaAdapter adapter = new VentaAdapter(VentasActivity.this);
+                // Mostrar solo pedidos confirmados al limpiar
+                List<Pedido> pedidosConfirmados = new ArrayList<>();
+                for (Pedido p : Pedido.pedidos) {
+                    if (p.getConfirmado()) {
+                        pedidosConfirmados.add(p);
+                    }
+                }
+                VentaAdapter adapter = new VentaAdapter(VentasActivity.this, pedidosConfirmados);
                 recyclerView.setAdapter(adapter);
 
                 dialog.dismiss();
             }
         });
 
-
-
         dialog.show();
     }
-
 }
