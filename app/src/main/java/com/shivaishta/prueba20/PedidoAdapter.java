@@ -40,9 +40,9 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.tvDireccion.setText(cliente.getDireccion());
 
         // Mostrar urgencia si existe
-        if (cliente.getMotivoUrgencia() != null && !cliente.getMotivoUrgencia().isEmpty()) {
+        if (cliente.getUrgencia() != null && !cliente.getUrgencia().isEmpty()) {
             holder.tvUrgencia.setVisibility(View.VISIBLE);
-            holder.tvUrgencia.setText("Urgente: " + cliente.getMotivoUrgencia());
+            holder.tvUrgencia.setText("Urgente: " + cliente.getUrgencia());
             holder.tvCliente.setTextColor(Color.RED);
             holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
         } else {

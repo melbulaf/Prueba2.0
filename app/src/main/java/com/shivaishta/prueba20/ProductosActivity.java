@@ -135,7 +135,6 @@ public class ProductosActivity extends AppCompatActivity {
                     productoEditar.setPrecioC(precioC);
                     productoEditar.setPrecioV(precioV);
                     productoEditar.setCategoria(categoria);
-                    productoEditar.setUrgente(urgente);
                 }
 
                 productoAdapter.notifyDataSetChanged();

@@ -226,14 +226,14 @@ public class ComprasActivity extends AppCompatActivity {
                     Producto encontrado = null;
                     try {
                         int codigoBuscado = Integer.parseInt(nombreCodigo); // evaluar si es código
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getCodigo() == codigoBuscado) {
                                 encontrado = p;
                                 break;
                             }
                         }
                     } catch (NumberFormatException e) { // si no es número, buscar por nombre
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getNombre().equalsIgnoreCase(nombreCodigo)) {
                                 encontrado = p;
                                 break;

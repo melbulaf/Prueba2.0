@@ -60,7 +60,7 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
 
-            for (Producto p : Producto.productos) {
+            for (Producto p : Inventario.productos) {
                 if (p.getCodigo() == codigo) {
                     total += p.getPrecioV() * cant;
                     totalCantidad += cant;
@@ -110,7 +110,7 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
             int cant = Integer.parseInt(partes[1]);
             Producto productoEncontrado = null;
 
-            for (Producto p : Producto.productos) {
+            for (Producto p : Inventario.productos) {
                 if (p.getCodigo() == codigo) {
                     productoEncontrado = p;
                     break;

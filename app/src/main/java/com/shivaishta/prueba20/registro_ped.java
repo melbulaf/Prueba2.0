@@ -125,7 +125,7 @@ public class registro_ped extends AppCompatActivity {
 
                         // buscar objeto producto
                         Producto productoEncontrado = null;
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getNombre().equalsIgnoreCase(nombre)) {
                                 productoEncontrado = p;
                                 break;
@@ -199,7 +199,7 @@ public class registro_ped extends AppCompatActivity {
 
                         // buscar objeto producto
                         Producto productoEncontrado = null;
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getNombre().equalsIgnoreCase(nombre)) {
                                 productoEncontrado = p;
                                 break;
@@ -286,14 +286,14 @@ public class registro_ped extends AppCompatActivity {
                     Producto encontrado = null;
                     try {
                         int codigoBuscado = Integer.parseInt(nombreCodigo); // evaluar si es código
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getCodigo() == codigoBuscado) {
                                 encontrado = p;
                                 break;
                             }
                         }
                     } catch (NumberFormatException e) { // si no es número, buscar por nombre
-                        for (Producto p : Producto.productos) {
+                        for (Producto p : Inventario.productos) {
                             if (p.getNombre().equalsIgnoreCase(nombreCodigo)) {
                                 encontrado = p;
                                 break;

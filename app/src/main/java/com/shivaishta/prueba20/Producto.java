@@ -61,10 +61,6 @@ public class Producto {
         return codigo;
     }
 
-    public boolean getUrgente() {
-        return urgente;
-    }
-
     // Setters
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -86,10 +82,6 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public void setUrgente(boolean urgente) {
-        this.urgente = urgente;
-    }
-
     // Métodos estáticos
     public static List<Producto> getProductos() {
         return listaProductos;
@@ -108,7 +100,7 @@ public class Producto {
         File archivo = new File(context.getFilesDir(), "productos.txt");
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
             for (Producto p : listaProductos) {
-                pw.println(p.nombre + "," + p.cantidad + "," + p.precioV + "," + p.precioC + "," + p.categoria + "," + p.codigo + "," + p.urgente);
+                pw.println(p.nombre + "," + p.cantidad + "," + p.precioV + "," + p.precioC + "," + p.categoria + "," + p.codigo);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -133,7 +125,7 @@ public class Producto {
                         double precioC = Double.parseDouble(partes[3]);
                         String categoria = partes[4];
                         String urgente = partes[6];
-                        Producto p = new Producto(nombre, cantidad, precioV, precioC, categoria, urgente);
+                        Producto p = new Producto(nombre, cantidad, precioV, precioC, categoria);
                         listaProductos.add(p);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();

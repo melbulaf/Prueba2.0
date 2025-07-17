@@ -137,7 +137,7 @@ public class FacturaActivity extends AppCompatActivity {
                 int cant = Integer.parseInt(partes[1]);
                 Producto p = null;
                 //obtener producto
-                for (Producto producto : Producto.productos) {
+                for (Producto producto : Inventario.productos) {
                     if (producto.getCodigo() == codigo) {
                         p = producto;
                         break;
@@ -211,7 +211,7 @@ public class FacturaActivity extends AppCompatActivity {
             int cant = Integer.parseInt(partes[1]);
             Producto p = null;
             //obtener producto
-            for (Producto producto : Producto.productos) {
+            for (Producto producto : Inventario.productos) {
                 if (producto.getCodigo() == codigo) {
                     p = producto;
                     break;
