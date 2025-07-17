@@ -12,31 +12,58 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Prueba20">
-
-        <!-- Pantalla de carga inicial -->
+        <activity
+            android:name=".ProductosActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ClientesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroClienteActivity"
+            android:exported="false" />
+        <activity
+            android:name=".VentasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".registro_ped"
+            android:exported="false" />
+        <activity
+            android:name=".RegistrarPedido"
+            android:exported="false" />
+        <activity
+            android:name=".ComprasActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FacturaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DetallesPedidoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".InventarioActivity"
+            android:exported="false" />
         <activity
             android:name=".PreloadActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".ProductosActivity" android:exported="false" />
-        <activity android:name=".ClientesActivity" android:exported="false" />
-        <activity android:name=".VentasActivity" android:exported="false" />
-        <activity android:name=".registro_ped" android:exported="false" />
-        <activity android:name=".RegistrarPedido" android:exported="false" />
-        <activity android:name=".ComprasActivity" android:exported="false" />
-        <activity android:name=".FacturaActivity" android:exported="false" />
-        <activity android:name=".DetallesPedidoActivity" android:exported="false" />
-        <activity android:name=".InventarioActivity" android:exported="false" />
-        <activity android:name=".RutaActivity" android:exported="false" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".RutaActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -48,4 +75,5 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+
 </manifest>

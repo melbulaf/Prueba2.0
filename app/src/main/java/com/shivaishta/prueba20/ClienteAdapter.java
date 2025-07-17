@@ -4,50 +4,42 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.List;
 
-public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ClienteViewHolder> {
+public class ClienteAdapter extends RecyclerView.Adapter<ClienteAdapter.ViewHolder> {
+    private List<Cliente> clientes;
 
-    private final List<Cliente> listaClientes;
-
-    public ClienteAdapter(List<Cliente> listaClientes) {
-        this.listaClientes = listaClientes;
-    }
-
-    @NonNull
-    @Override
-    public ClienteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cliente, parent, false);
-        return new ClienteViewHolder(vista);
+    public ClienteAdapter(List<Cliente> clientes) {
+        this.clientes = clientes;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ClienteViewHolder holder, int position) {
-        Cliente cliente = listaClientes.get(position);
-        holder.txtNombre.setText(cliente.getNombre());
-        holder.txtTelefono.setText(cliente.getTelefono());
-        holder.txtDireccion.setText(cliente.getDireccion());
-        holder.txtUrgencia.setText(cliente.getUrgencia());
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(parent.getContext())
+                .inflate(android.R.layout.simple_list_item_2, parent, false);
+        return new ViewHolder(vista);
+    }
+
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Cliente c = clientes.get(position);
+        holder.nombre.setText(c.getNombre());
+        holder.detalle.setText(c.getTelefono() + " | " + (c.esUrgente() ? "Urgente" : "Normal"));
     }
 
     @Override
     public int getItemCount() {
-        return listaClientes.size();
+        return clientes.size();
     }
 
-    public static class ClienteViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtTelefono, txtDireccion, txtUrgencia;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nombre, detalle;
 
-        public ClienteViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtTelefono = itemView.findViewById(R.id.txtTelefono);
-            txtDireccion = itemView.findViewById(R.id.txtDireccion);
-            txtUrgencia = itemView.findViewById(R.id.txtUrgencia);
+            nombre = itemView.findViewById(android.R.id.text1);
+            detalle = itemView.findViewById(android.R.id.text2);
         }
     }
 }

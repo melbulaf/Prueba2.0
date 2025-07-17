@@ -1,60 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp"
-    app:cardBackgroundColor="@android:color/white">
+    android:orientation="horizontal"
+    android:padding="12dp"
+    android:background="?android:attr/selectableItemBackground">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/tvCantidad"
+        android:layout_width="30dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="12dp">
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"/>
 
-        <TextView
-            android:id="@+id/txtNombreProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nombre del producto"
-            android:textStyle="bold"
-            android:textSize="16sp" />
+    <TextView
+        android:id="@+id/tvNombre"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/colorTextPrimary"/>
 
-        <TextView
-            android:id="@+id/txtCodigoProducto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Código: 123"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtPrecioCompra"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio compra: $0"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtPrecioVenta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Precio venta: $0"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtCantidad"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cantidad: 0"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/txtCategoria"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categoría: N/A"
-            android:textSize="14sp" />
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+    <TextView
+        android:id="@+id/tvPrecio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:textColor="@color/colorTextPrimary"
+        android:gravity="end"/>
+</LinearLayout>

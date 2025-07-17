@@ -1,59 +1,43 @@
 package com.shivaishta.prueba20;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.TextView;
-
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+import java.util.ArrayList;
 
-import java.util.List;
+public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ViewHolder> {
+    private final ArrayList<Producto> productos;
 
-public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
-
-    private final List<Producto> listaProductos;
-
-    public ProductoAdapter(List<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
-    }
-
-    @NonNull
-    @Override
-    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_producto, parent, false);
-        return new ProductoViewHolder(vista);
+    public ProductoAdapter(ArrayList<Producto> productos) {
+        this.productos = productos;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
-        Producto producto = listaProductos.get(position);
-        holder.txtCodigo.setText("Código: " + producto.getCodigo());
-        holder.txtNombre.setText("Nombre: " + producto.getNombre());
-        holder.txtCategoria.setText("Categoría: " + producto.getCategoria());
-        holder.txtCantidad.setText("Cantidad: " + producto.getCantidad());
-        holder.txtPrecioCompra.setText("Precio compra: $" + producto.getPrecioC());
-        holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecioV());
-        holder.txtUrgente.setText(producto.getUrgente());
+    public ProductoAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(parent.getContext())
+                .inflate(android.R.layout.simple_list_item_2, parent, false);
+        return new ViewHolder(vista);
+    }
+
+    @Override
+    public void onBindViewHolder(ProductoAdapter.ViewHolder holder, int position) {
+        Producto p = productos.get(position);
+        holder.nombre.setText(p.getNombre());
+        holder.detalles.setText("Precio: $" + p.getPrecio() + " | Stock: " + p.getCantidad());
     }
 
     @Override
     public int getItemCount() {
-        return listaProductos.size();
+        return productos.size();
     }
 
-    public static class ProductoViewHolder extends RecyclerView.ViewHolder {
-        TextView txtCodigo, txtNombre, txtCategoria, txtCantidad, txtPrecioCompra, txtPrecioVenta, txtUrgente;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView nombre, detalles;
 
-        public ProductoViewHolder(@NonNull View itemView) {
+        public ViewHolder(View itemView) {
             super(itemView);
-            txtCodigo = itemView.findViewById(R.id.txtCodigo);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtCategoria = itemView.findViewById(R.id.txtCategoria);
-            txtCantidad = itemView.findViewById(R.id.txtCantidad);
-            txtPrecioCompra = itemView.findViewById(R.id.txtPrecioCompra);
-            txtPrecioVenta = itemView.findViewById(R.id.txtPrecioVenta);
-            txtUrgente = itemView.findViewById(R.id.txtUrgente);
+            nombre = itemView.findViewById(android.R.id.text1);
+            detalles = itemView.findViewById(android.R.id.text2);
         }
     }
 }
