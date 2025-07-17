@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 );
 
                 List<String> productos = new ArrayList<>();
-                productos.add(String.valueOf(new Producto("Producto A", "Ejemplo", 25000, 20000, 2, 1200, false).getCodigo()) + "_10");
-                productos.add(String.valueOf(new Producto("Producto B", "Ejemplo", 50000, 40000, 1, 1002, false).getCodigo()) + "_10");
+                productos.add(String.valueOf(new Producto("Producto A", 2, 25000, 20000, "Ejemplo", 1200, false).getCodigo()) + "_10");
+                productos.add(String.valueOf(new Producto("Producto B", 1, 50000, 40000, "Ejemplo", 1002, false).getCodigo()) + "_10");
 
                 String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 

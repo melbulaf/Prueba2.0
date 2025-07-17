@@ -21,7 +21,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
     @NonNull
     @Override
     public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_producto, parent, false);
+        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_producto, parent, false);
         return new ProductoViewHolder(vista);
     }
 
@@ -53,7 +53,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
             txtCantidad = itemView.findViewById(R.id.txtCantidad);
             txtPrecioCompra = itemView.findViewById(R.id.txtPrecioCompra);
             txtPrecioVenta = itemView.findViewById(R.id.txtPrecioVenta);
-            txtUrgente = itemView.findViewById(R.id.txtUrgencia);
+            txtUrgente = itemView.findViewById(R.id.txtUrgente);
         }
     }
 }

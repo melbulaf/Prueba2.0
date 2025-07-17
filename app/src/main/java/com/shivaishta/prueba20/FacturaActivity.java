@@ -3,8 +3,6 @@ package com.shivaishta.prueba20;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
-
-import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -72,7 +70,6 @@ public class FacturaActivity extends AppCompatActivity {
         btnCompartir.setOnClickListener(v -> compartirFactura());
         btnFinalizar.setOnClickListener(v -> finish());
     }
-    @SuppressLint("DefaultLocale")
     private void generarFactura() {
         try {
             File directorio = new File(Environment.getExternalStoragePublicDirectory(
@@ -148,8 +145,8 @@ public class FacturaActivity extends AppCompatActivity {
 
                 tabla.addCell(new Paragraph(String.valueOf(cant), fuenteSub));
                 tabla.addCell(new Paragraph(p.getNombre(), fuenteSub));
-                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecioC()), fuenteSub));
-                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecioV() * cant), fuenteSub));
+                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio()), fuenteSub));
+                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio() * cant), fuenteSub));
             } }
 
             documento.add(tabla);
@@ -219,7 +216,7 @@ public class FacturaActivity extends AppCompatActivity {
             }
 
             if (p != null) {
-            total += p.getPrecioV() * cant;
+            total += p.getPrecio() * cant;
             }
         }
         return total;

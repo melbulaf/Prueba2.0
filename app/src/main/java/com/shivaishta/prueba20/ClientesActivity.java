@@ -1,5 +1,6 @@
 package com.shivaishta.prueba20;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -95,7 +96,7 @@ public class ClientesActivity extends AppCompatActivity {
                         clienteEditar.setNombre(nombre);
                         clienteEditar.setTelefono(telefono);
                         clienteEditar.setDireccion(direccion);
-                        clienteEditar.setUrgencia();
+                        clienteEditar.setUrgencia(urgencia);
                     } else {
                         Cliente.agregarCliente(new Cliente(nombre, telefono, direccion, urgencia));
                     }

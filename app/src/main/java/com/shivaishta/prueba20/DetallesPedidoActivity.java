@@ -1,6 +1,5 @@
 package com.shivaishta.prueba20;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -63,7 +62,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             containerBotones.setOrientation(LinearLayout.VERTICAL);
             containerBotones.setPadding(16, 16, 16, 16);
 
-            @SuppressLint("WrongViewCast") LinearLayout mainLayout = findViewById(R.id.mainLayout);
+            LinearLayout mainLayout = findViewById(R.id.mainLayout);
             mainLayout.addView(containerBotones);
         }
         containerBotones.addView(btnFacturar);
@@ -77,7 +76,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         tvCliente.setText("Cliente: " + pedido.getCliente().getNombre());
         tvDireccion.setText("Dirección: " + pedido.getCliente().getDireccion());
 
-        if (pedido.getCliente().setUrgencia()) {
+        if (pedido.getCliente().esUrgente()) {
             tvInfoUrgencia.setVisibility(View.VISIBLE);
             tvInfoUrgencia.setText("¡PEDIDO URGENTE!");
         } else {

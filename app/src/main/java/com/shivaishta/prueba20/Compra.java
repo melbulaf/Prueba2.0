@@ -5,7 +5,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import android.content.Context;
 import java.io.*;
-import java.util.Objects;
 
 public class Compra {
     public Producto producto;
@@ -71,7 +70,7 @@ public class Compra {
 
                 Producto encontrado = null;
                 for (Producto p : Producto.getProductos()) {
-                    if (Objects.equals(p.getCodigo(), codigo)) {
+                    if (p.getCodigo().equals(codigo)) {
                         encontrado = p;
                         break;
                     }

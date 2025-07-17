@@ -39,7 +39,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.tvCliente.setText(cliente.getNombre());
         holder.tvDireccion.setText(cliente.getDireccion());
 
-        if (cliente.setUrgencia()) {
+        if (cliente.esUrgente()) {
             holder.tvCliente.setTextColor(Color.RED);
             holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
         } else {
