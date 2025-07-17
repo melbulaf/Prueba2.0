@@ -16,18 +16,47 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     Button registrarPedido;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Botón Inventario
-        CardView cardInventario = findViewById(R.id.cardInventario);
-        cardInventario.setOnClickListener(new View.OnClickListener() {
+
+        // Botón Ruta
+        CardView cardRuta = findViewById(R.id.cardRuta);
+        cardRuta.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Iniciar InventarioActivity
-                Intent intent = new Intent(MainActivity.this, InventarioActivity.class);
+                Intent intent = new Intent(MainActivity.this, RutaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Botón Facturación
+        CardView cardFacturacion = findViewById(R.id.cardFunc2);
+        cardFacturacion.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Crear pedido de ejemplo con datos de prueba
+                Cliente cliente = new Cliente(
+                        "Cliente Ejemplo",
+                        "3106830641",
+                        "Calle 123 #45-67",
+                        "Urgente para mañana"
+                );
+
+                List<String> productos = new ArrayList<>();
+                productos.add(String.valueOf(new Producto("Producto A", 2, 25000).getCodigo()) + "_" + "10");
+                productos.add(String.valueOf(new Producto("Producto B", 1, 50000).getCodigo()) + "_" + "10");
+
+                String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
+
+                Pedido pedido = new Pedido(cliente, productos, fecha);
+
+                // Abrir FacturaActivity con el pedido
+                Intent intent = new Intent(MainActivity.this, FacturaActivity.class);
+                intent.putExtra("pedido", pedido);
                 startActivity(intent);
             }
         });
@@ -42,17 +71,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Botón Clientes
+        // Otros botones (mantienen Toast temporal)
         CardView cardClientes = findViewById(R.id.cardFunc3);
         cardClientes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ClientesActivity.class);
-                startActivity(intent);
+                Toast.makeText(MainActivity.this, "Clientes - En desarrollo", Toast.LENGTH_SHORT).show();
             }
         });
 
-        // Botón Pedidos
         CardView cardPedidos = findViewById(R.id.cardFunc4);
         cardPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +89,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Botón Compras
+        CardView cardConfig = findViewById(R.id.cardFunc5);
+        cardConfig.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Configuración - En desarrollo", Toast.LENGTH_SHORT).show();
+            }
+        });
+
         CardView cardCompras = findViewById(R.id.cardCompras);
         cardCompras.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,14 +106,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Botón Ruta
-        CardView cardRuta = findViewById(R.id.cardRuta);
-        cardRuta.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, RutaActivity.class);
-                startActivity(intent);
-            }
-        });
+
+
+
     }
 }
