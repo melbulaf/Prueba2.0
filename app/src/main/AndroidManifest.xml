@@ -19,6 +19,12 @@
             android:name=".ClientesActivity"
             android:exported="false" />
         <activity
+            android:name=".RegistroProductoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegistroClienteActivity"
+            android:exported="false" />
+        <activity
             android:name=".VentasActivity"
             android:exported="false" />
         <activity

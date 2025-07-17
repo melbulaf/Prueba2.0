@@ -81,11 +81,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Pedido.cargarPed(this);
-        Compra.cargarC(this);
-        Cliente.cargarClientes(this);
-
     }
-    
 }
