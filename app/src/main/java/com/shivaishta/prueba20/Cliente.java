@@ -61,8 +61,9 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public void setUrgencia(String urgencia) {
+    public boolean setUrgencia() {
         this.urgencia = urgencia;
+        return false;
     }
 
     // Métodos estáticos
