@@ -162,6 +162,7 @@ public class registro_ped extends AppCompatActivity {
                         android.widget.Toast.makeText(registro_ped.this,
                                 "Pedido Registrado Exitosamente.",
                                 android.widget.Toast.LENGTH_LONG).show();
+                        setResult(RESULT_OK);
                         finish();
 
                 } else {
