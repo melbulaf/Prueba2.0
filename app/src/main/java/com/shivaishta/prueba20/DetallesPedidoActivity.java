@@ -95,7 +95,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             int cant = Integer.parseInt(partes[1]);
             Producto producto = null;
 
-            for (Producto pp : Producto.getProductos()) {
+            for (Producto pp : Inventario.productos) {
                 if (pp.getCodigo() == codigo) {
                     producto = pp;
                     break;
@@ -103,7 +103,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             }
 
             if (producto != null) {
-                double subtotal = producto.getPrecioV() * cant; // Usar precio de venta
+                double subtotal = producto.getPrecio() * cant; // Usar precio de venta
                 total += subtotal;
 
                 TextView tvProducto = new TextView(this);

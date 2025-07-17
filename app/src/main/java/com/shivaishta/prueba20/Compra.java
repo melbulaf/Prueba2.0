@@ -70,7 +70,7 @@ public class Compra {
                 double total = Double.parseDouble(partes[4]);
 
                 Producto encontrado = null;
-                for (Producto p : Producto.getProductos()) {
+                for (Producto p : Inventario.productos) {
                     if (Objects.equals(p.getCodigo(), codigo)) {
                         encontrado = p;
                         break;

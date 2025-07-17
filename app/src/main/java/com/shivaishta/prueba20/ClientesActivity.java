@@ -9,12 +9,13 @@ import android.view.View;
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientesActivity extends AppCompatActivity {
 
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private ArrayList<Cliente> clientes;
+    private List<Cliente> clientes;
     private Button btnAgregar;
 
     @Override
@@ -24,7 +25,7 @@ public class ClientesActivity extends AppCompatActivity {
 
         listView = findViewById(R.id.listaClientes);
         btnAgregar = findViewById(R.id.btnAgregarCliente);
-        clientes = Cliente.clientes;
+        clientes = Cliente.getClientes();
 
         actualizarLista();
 

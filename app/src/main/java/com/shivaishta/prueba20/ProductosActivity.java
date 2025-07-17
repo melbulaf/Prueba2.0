@@ -79,17 +79,15 @@ public class ProductosActivity extends AppCompatActivity {
         EditText etCantidad = dialogView.findViewById(R.id.edtCantidad);
         EditText etCategoria = dialogView.findViewById(R.id.edtCategoria);
         EditText etCodigo = dialogView.findViewById(R.id.edtCodigo);
-        Switch switchUrgente = dialogView.findViewById(R.id.switchUrgente);
 
         if (productoEditar != null) {
             etNombre.setText(productoEditar.getNombre());
             etPrecioC.setText(String.valueOf(productoEditar.getPrecioC()));
-            etPrecioV.setText(String.valueOf(productoEditar.getPrecioV()));
+            etPrecioV.setText(String.valueOf(productoEditar.getPrecio()));
             etCantidad.setText(String.valueOf(productoEditar.getCantidad()));
             etCategoria.setText(productoEditar.getCategoria());
             etCodigo.setText(String.valueOf(productoEditar.getCodigo()));
             etCodigo.setEnabled(false); // No permitir cambiar el código al editar
-            switchUrgente.setChecked(productoEditar.isUrgente());
         }
 
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -103,11 +101,9 @@ public class ProductosActivity extends AppCompatActivity {
             String precioVStr = etPrecioV.getText().toString().trim();
             String cantidadStr = etCantidad.getText().toString().trim();
             String categoria = etCategoria.getText().toString().trim();
-            String codigoStr = etCodigo.getText().toString().trim();
-            boolean urgente = switchUrgente.isChecked();
 
             if (nombre.isEmpty() || precioCStr.isEmpty() || precioVStr.isEmpty() ||
-                    cantidadStr.isEmpty() || categoria.isEmpty() || codigoStr.isEmpty()) {
+                    cantidadStr.isEmpty() || categoria.isEmpty() ) {
                 Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -116,24 +112,16 @@ public class ProductosActivity extends AppCompatActivity {
                 double precioC = Double.parseDouble(precioCStr);
                 double precioV = Double.parseDouble(precioVStr);
                 int cantidad = Integer.parseInt(cantidadStr);
-                int codigo = Integer.parseInt(codigoStr);
 
                 if (productoEditar == null) {
-                    // Validar código duplicado
-                    for (Producto p : listaProductos) {
-                        if (p.getCodigo() == codigo) {
-                            Toast.makeText(this, "Ya existe un producto con ese código", Toast.LENGTH_SHORT).show();
-                            return;
-                        }
-                    }
-                    Producto nuevo = new Producto(nombre, cantidad, precioV, precioC, categoria, codigo, urgente);
+                    Producto nuevo = new Producto(nombre, categoria, precioV, precioC, cantidad);
                     listaProductos.add(nuevo);
                 } else {
                     // Editar producto existente
                     productoEditar.setNombre(nombre);
                     productoEditar.setCantidad(cantidad);
                     productoEditar.setPrecioC(precioC);
-                    productoEditar.setPrecioV(precioV);
+                    productoEditar.setPrecio(precioV);
                     productoEditar.setCategoria(categoria);
                 }
 

@@ -33,8 +33,7 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.txtCategoria.setText("Categoría: " + producto.getCategoria());
         holder.txtCantidad.setText("Cantidad: " + producto.getCantidad());
         holder.txtPrecioCompra.setText("Precio compra: $" + producto.getPrecioC());
-        holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecioV());
-        holder.txtUrgente.setText(producto.getUrgente());
+        holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecio());
     }
 
     @Override
