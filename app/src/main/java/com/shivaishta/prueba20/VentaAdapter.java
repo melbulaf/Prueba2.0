@@ -62,7 +62,7 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
 
             for (Producto p : Producto.productos) {
                 if (p.getCodigo() == codigo) {
-                    total += p.getPrecio() * cant;
+                    total += p.getPrecioV() * cant;
                     totalCantidad += cant;
                     break;
                 }

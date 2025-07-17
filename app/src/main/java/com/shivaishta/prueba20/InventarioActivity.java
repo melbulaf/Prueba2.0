@@ -123,7 +123,7 @@ public class InventarioActivity extends AppCompatActivity{
                     productosSorted.sort((a, b) -> a.getCategoria().compareToIgnoreCase(b.getCategoria()));
                     break;
                 case "Precio":
-                    productosSorted.sort((a, b) -> Double.compare(a.getPrecio(), b.getPrecio()));
+                    productosSorted.sort((a, b) -> Double.compare(a.getPrecioV(), b.getPrecioV()));
                     break;
                 case "Cantidad":
                     productosSorted.sort((a, b) -> Integer.compare(a.getCantidad(), b.getCantidad()));
@@ -139,7 +139,7 @@ public class InventarioActivity extends AppCompatActivity{
             for (Producto p : productosSorted) {
                 TableRow fila = new TableRow(this);
                 fila.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
+                        MATCH_PARENT,
                         WRAP_CONTENT));
 
                 TextView tvCodigo = new TextView(this);
@@ -170,7 +170,7 @@ public class InventarioActivity extends AppCompatActivity{
                 tvCategoria.setLayoutParams(new TableRow.LayoutParams(0, MATCH_PARENT, 0.2f));
 
                 TextView tvPrecio = new TextView(this);
-                tvPrecio.setText(String.valueOf(p.getPrecio()));
+                tvPrecio.setText(String.valueOf(p.getPrecioV()));
                 tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
                 tvPrecio.setPadding(3, 4, 3, 4);
                 tvPrecio.setTextColor(Color.BLACK);
@@ -236,7 +236,7 @@ public class InventarioActivity extends AppCompatActivity{
                 }
                 TableRow fila = new TableRow(this);
                 fila.setLayoutParams(new TableRow.LayoutParams(
-                        TableRow.LayoutParams.MATCH_PARENT,
+                        MATCH_PARENT,
                         WRAP_CONTENT));
 
                 TextView tvCodigo = new TextView(this);
@@ -267,7 +267,7 @@ public class InventarioActivity extends AppCompatActivity{
                 tvCategoria.setLayoutParams(new TableRow.LayoutParams(0, MATCH_PARENT, 0.2f));
 
                 TextView tvPrecio = new TextView(this);
-                tvPrecio.setText(String.valueOf(encontrado.getPrecio()));
+                tvPrecio.setText(String.valueOf(encontrado.getPrecioV()));
                 tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
                 tvPrecio.setPadding(3, 4, 3, 4);
                 tvPrecio.setTextColor(Color.BLACK);

@@ -7,18 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Producto {
+    public static Producto[] productos;
     private String nombre;
     private int cantidad;
     private double precioV;
     private double precioC;
     private String categoria;
-    private String codigo;
+    private int codigo;
     private String urgente;
 
-    private static final List<Producto> listaProductos = new ArrayList<>();
+    public static final List<Producto> listaProductos = new ArrayList<>();
 
     // Constructor
-    public Producto(String nombre, int cantidad, double precioV, double precioC, String categoria, String codigo, String urgente) {
+    public Producto(String nombre, String categoria, double precioV, double precioC, int cantidad, int codigo, String urgente) {
         this.nombre = nombre;
         this.cantidad = cantidad;
         this.precioV = precioV;
@@ -49,7 +50,7 @@ public class Producto {
         return categoria;
     }
 
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
 
@@ -78,7 +79,7 @@ public class Producto {
         this.categoria = categoria;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
 
@@ -128,9 +129,9 @@ public class Producto {
                         double precioV = Double.parseDouble(partes[2]);
                         double precioC = Double.parseDouble(partes[3]);
                         String categoria = partes[4];
-                        String codigo = partes[5];
+                        int codigo = Integer.parseInt(partes[5]);
                         String urgente = partes[6];
-                        Producto p = new Producto(nombre, cantidad, precioV, precioC, categoria, codigo, urgente);
+                        Producto p = new Producto(nombre, categoria, precioV, precioC, cantidad, codigo, urgente);
                         listaProductos.add(p);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
