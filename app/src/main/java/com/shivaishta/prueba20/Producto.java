@@ -15,7 +15,7 @@ public class Producto {
     private String codigo;
     private String urgente;
 
-    private static final List<Producto> listaProductos = new ArrayList<>();
+    public static final List<Producto> productos = new ArrayList<>();
 
     // Constructor
     public Producto(String nombre, int cantidad, double precioV, double precioC, String categoria, String codigo, String urgente) {
@@ -88,22 +88,22 @@ public class Producto {
 
     // Métodos estáticos
     public static List<Producto> getProductos() {
-        return listaProductos;
+        return productos;
     }
 
     public static void agregarProducto(Producto p) {
-        listaProductos.add(p);
+        productos.add(p);
     }
 
     public static void eliminarProducto(Producto p) {
-        listaProductos.remove(p);
+        productos.remove(p);
     }
 
     // Guardar productos a archivo
     public static void guardarProductos(Context context) {
         File archivo = new File(context.getFilesDir(), "productos.txt");
         try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
-            for (Producto p : listaProductos) {
+            for (Producto p : productos) {
                 pw.println(p.nombre + "," + p.cantidad + "," + p.precioV + "," + p.precioC + "," + p.categoria + "," + p.codigo + "," + p.urgente);
             }
         } catch (IOException e) {
@@ -113,7 +113,7 @@ public class Producto {
 
     // Cargar productos desde archivo
     public static void cargarProductos(Context context) {
-        listaProductos.clear();
+        productos.clear();
         File archivo = new File(context.getFilesDir(), "productos.txt");
         if (!archivo.exists()) return;
 
@@ -131,7 +131,7 @@ public class Producto {
                         String codigo = partes[5];
                         String urgente = partes[6];
                         Producto p = new Producto(nombre, cantidad, precioV, precioC, categoria, codigo, urgente);
-                        listaProductos.add(p);
+                        productos.add(p);
                     } catch (NumberFormatException e) {
                         e.printStackTrace();
                     }
