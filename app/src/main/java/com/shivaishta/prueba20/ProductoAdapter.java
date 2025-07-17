@@ -34,7 +34,6 @@ public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.Produc
         holder.txtCantidad.setText("Cantidad: " + producto.getCantidad());
         holder.txtPrecioCompra.setText("Precio compra: $" + producto.getPrecioC());
         holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecioV());
-        holder.txtUrgente.setText(producto.getUrgente());
     }
 
     @Override

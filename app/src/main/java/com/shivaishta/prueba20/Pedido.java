@@ -51,7 +51,7 @@ public class Pedido implements Serializable {
             int codigoBuscado = Integer.parseInt(partes[0]);
             int cantidad = Integer.parseInt(partes[1]);
             Producto encontrado = null;
-            for (Producto p : Producto.productos) {
+            for (Producto p : Inventario.productos) {
                 if (p.getCodigo() == codigoBuscado) {
                     encontrado = p;
                     break;
