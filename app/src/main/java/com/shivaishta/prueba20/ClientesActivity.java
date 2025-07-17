@@ -15,17 +15,16 @@ public class ClientesActivity extends AppCompatActivity {
 
     private ListView listView;
     private ArrayAdapter<String> adapter;
-    private List<Cliente> clientes;
+    private List<Cliente> clientes = Cliente.getClientes();
     private Button btnAgregar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clientes);
-
+        Cliente.cargarClientes(this);
         listView = findViewById(R.id.listaClientes);
-        btnAgregar = findViewById(R.id.btnAgregarCliente);
-        clientes = Cliente.getClientes();
+        btnAgregar = findViewById(R.id.btnAgregarCliente);;
 
         actualizarLista();
 
@@ -98,7 +97,9 @@ public class ClientesActivity extends AppCompatActivity {
                 clienteEditar.setMotivoUrgencia(urg);
             } else {
                 new Cliente(nombre, tel, dir, urg);
+                Cliente.agregarCliente(new Cliente(nombre, tel, dir, urg));
             }
+            Cliente.guardarClientes(this);
             actualizarLista();
         });
 

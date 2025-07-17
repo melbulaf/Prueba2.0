@@ -2,6 +2,7 @@ package com.shivaishta.prueba20;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +40,6 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
         }
     }
 
-
     @NonNull
     @Override
     public VentaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -75,6 +75,18 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
         holder.txtTotalVenta.setText(String.valueOf(total));
 
         holder.btnVerProductos.setOnClickListener(v -> mostrarDialogoProductos(pedido));
+
+        // Configurar botón de factura solo si está confirmado
+        if (pedido.getConfirmado()) {
+            holder.btnFactura.setVisibility(View.VISIBLE);
+            holder.btnFactura.setOnClickListener(v -> {
+                Intent intent = new Intent(context, FacturaActivity.class);
+                intent.putExtra("pedido", pedido);
+                context.startActivity(intent);
+            });
+        } else {
+            holder.btnFactura.setVisibility(View.GONE);
+        }
     }
 
     private void mostrarDialogoProductos(Pedido pedido) {
@@ -147,7 +159,7 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
 
     static class VentaViewHolder extends RecyclerView.ViewHolder {
         TextView txtClienteVenta, txtCantidadVenta, txtFechaVenta, txtTotalVenta;
-        Button btnVerProductos;
+        Button btnVerProductos, btnFactura;
 
         public VentaViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -156,6 +168,7 @@ public class VentaAdapter extends RecyclerView.Adapter<VentaAdapter.VentaViewHol
             txtFechaVenta = itemView.findViewById(R.id.txtFechaVenta);
             txtTotalVenta = itemView.findViewById(R.id.txtTotalVenta);
             btnVerProductos = itemView.findViewById(R.id.btnVerProductos);
+            btnFactura = itemView.findViewById(R.id.btnFactura);
         }
     }
 }

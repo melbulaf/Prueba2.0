@@ -39,10 +39,14 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.tvCliente.setText(cliente.getNombre());
         holder.tvDireccion.setText(cliente.getDireccion());
 
-        if (cliente.esUrgente()) {
+        // Mostrar urgencia si existe
+        if (cliente.getMotivoUrgencia() != null && !cliente.getMotivoUrgencia().isEmpty()) {
+            holder.tvUrgencia.setVisibility(View.VISIBLE);
+            holder.tvUrgencia.setText("Urgente: " + cliente.getMotivoUrgencia());
             holder.tvCliente.setTextColor(Color.RED);
             holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
         } else {
+            holder.tvUrgencia.setVisibility(View.GONE);
             holder.tvCliente.setTextColor(Color.BLACK);
             holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
         }
@@ -56,7 +60,7 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
     }
 
     static class PedidoViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCliente, tvDireccion;
+        TextView tvCliente, tvDireccion, tvUrgencia;
 
         public PedidoViewHolder(@NonNull View itemView) {
             super(itemView);
