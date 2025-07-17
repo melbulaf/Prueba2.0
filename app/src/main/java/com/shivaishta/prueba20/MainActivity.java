@@ -82,8 +82,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Pedido.cargarPed(this);
+        Compra.cargarC(this);
+        Cliente.cargarClientes(this);
+
         //Crear Objetos de Prueba
-        objPrueba();
+        if (Pedido.pedidos.isEmpty() && Producto.productos.isEmpty() && Compra.compras.isEmpty() && Cliente.getClientes().isEmpty()) {
+        objPrueba(); }
     }
 
         static void objPrueba() {

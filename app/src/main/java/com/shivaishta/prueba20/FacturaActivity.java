@@ -96,7 +96,7 @@ public class FacturaActivity extends AppCompatActivity {
             Font fuenteNegrita = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
 
             // Encabezado empresa
-            Paragraph encabezado = new Paragraph("DISTRIBUIDORA LUCITA\nNIT: 900.123.456-7\nCra 45 #32-20, Bogotá\nTel: (601) 555 1234\nEmail: contacto@lucita.com", fuenteSub);
+            Paragraph encabezado = new Paragraph("DISTRIBUIDORA LUCITA\nDulceria y Parva\nCalle 84#67c31, Bello, Antioquia\nTel: 310 4267326\nEmail: stellalider2020@gmail.com", fuenteSub);
             encabezado.setAlignment(Element.ALIGN_LEFT);
             documento.add(encabezado);
 
