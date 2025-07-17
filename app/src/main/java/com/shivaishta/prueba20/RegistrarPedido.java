@@ -32,6 +32,9 @@ public class RegistrarPedido extends AppCompatActivity {
 
         });
 
+        //Cargar pedidos
+        Pedido.cargarPed(this);
+
         //Configurar el adaptador del RecyclerView
         RecyclerView recyclerView = findViewById(R.id.recyclerPeds);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
