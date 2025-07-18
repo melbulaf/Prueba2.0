@@ -33,12 +33,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Botón Facturación
         CardView cardFacturacion = findViewById(R.id.cardFunc2);
         cardFacturacion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Crear pedido de ejemplo con datos de prueba
+                // Crear cliente de prueba
                 Cliente cliente = new Cliente(
                         "Cliente Ejemplo",
                         "3106830641",
@@ -46,20 +45,30 @@ public class MainActivity extends AppCompatActivity {
                         "Urgente para mañana"
                 );
 
+                // Asegúrate de que haya al menos un producto en el inventario
+                if (Inventario.productos.isEmpty()) {
+                    Inventario.productos.add(new Producto("Galletas", 101, "Snacks", 10, 1000, 1500));
+                    Inventario.productos.add(new Producto("Jugo", 102, "Bebidas", 5, 1200, 1800));
+                }
+
+                // Crear lista de productos en formato "codigo_cantidad"
                 List<String> productos = new ArrayList<>();
+                productos.add("101_2"); // 2 unidades del producto con código 101
+                productos.add("102_1"); // 1 unidad del producto con código 102
 
-
+                // Crear fecha actual
                 String fecha = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault()).format(new Date());
 
+                // Crear pedido con cliente, productos y fecha
                 Pedido pedido = new Pedido(cliente, productos, fecha);
+                pedido.confirmar();
 
-                // Abrir FacturaActivity con el pedido
+                // Iniciar FacturaActivity
                 Intent intent = new Intent(MainActivity.this, FacturaActivity.class);
                 intent.putExtra("pedido", pedido);
                 startActivity(intent);
             }
         });
-
         // Boton Productos
         CardView cardProductos = findViewById(R.id.cardProductos);
         cardProductos.setOnClickListener(new View.OnClickListener() {
