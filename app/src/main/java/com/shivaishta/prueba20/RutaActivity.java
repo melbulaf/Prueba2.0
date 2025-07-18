@@ -36,6 +36,8 @@ public class RutaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruta);
 
+        Pedido.cargarPed(this);
+
         imgRuta = findViewById(R.id.imgRuta);
         tvTituloRuta = findViewById(R.id.tvTituloRuta);
         tvFechaRuta = findViewById(R.id.tvFechaRuta);
@@ -51,8 +53,6 @@ public class RutaActivity extends AppCompatActivity {
         List<Ruta> rutas = Ruta.rutasPorDefecto();
         Ruta rutaDeHoy = Ruta.rutaDeHoy(rutas);
 
-        // Para pruebas: descomentar para forzar un día específico
-        // rutaDeHoy = new Ruta("Prueba", "miércoles");
 
         Log.d("RutaDebug", "Ruta de hoy: " + (rutaDeHoy != null ? rutaDeHoy.nombre : "null"));
 
@@ -77,6 +77,11 @@ public class RutaActivity extends AppCompatActivity {
             }, 4000);
 
             List<Pedido> pedidosHoy = obtenerPedidosPorDia(rutaDeHoy.dia);
+            List<Pedido> pedidosGuardados = obtenerPedidosGuardadosPorDia(rutaDeHoy.dia);
+
+
+            pedidosHoy.addAll(pedidosGuardados);
+
             Log.d("RutaDebug", "Pedidos encontrados: " + pedidosHoy.size());
 
             if (!pedidosHoy.isEmpty()) {
@@ -93,13 +98,27 @@ public class RutaActivity extends AppCompatActivity {
                 recyclerPedidos.setAdapter(null);
                 cardPedidos.setVisibility(View.VISIBLE);
             }
-
         } else {
             String diaTexto = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(new Date());
             tvTituloRuta.setText("NO HAY ENTREGAS HOY (" + diaTexto.toUpperCase() + ")");
             imgRuta.setVisibility(View.GONE);
             cardPedidos.setVisibility(View.GONE);
         }
+    }
+
+    private List<Pedido> obtenerPedidosGuardadosPorDia(String dia) {
+        List<Pedido> pedidosFiltrados = new ArrayList<>();
+        String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
+        String diaNormalizado = Ruta.normalizaDia(dia);
+
+        for (Pedido pedido : Pedido.pedidos) {
+            // Verificar si el pedido es para hoy
+            if (pedido.getFecha().equals(fechaActual)) {
+                pedidosFiltrados.add(pedido);
+            }
+        }
+
+        return pedidosFiltrados;
     }
 
     private String abrevDiaHoy() {
