@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Otros botones (mantienen Toast temporal)
+        //Boton Clientes
         CardView cardClientes = findViewById(R.id.cardFunc3);
         cardClientes.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Clientes - En desarrollo", Toast.LENGTH_SHORT).show();
             }
         });
-
+        // Otros botones (mantienen Toast temporal)
         CardView cardPedidos = findViewById(R.id.cardFunc4);
         cardPedidos.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,9 +105,5 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
     }
 }

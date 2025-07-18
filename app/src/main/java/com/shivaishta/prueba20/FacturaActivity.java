@@ -149,7 +149,7 @@ public class FacturaActivity extends AppCompatActivity {
                 tabla.addCell(new Paragraph(String.valueOf(cant), fuenteSub));
                 tabla.addCell(new Paragraph(p.getNombre(), fuenteSub));
                 tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecioC()), fuenteSub));
-                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecio() * cant), fuenteSub));
+                tabla.addCell(new Paragraph(String.format("$%,.2f", p.getPrecioV() * cant), fuenteSub));
             } }
 
             documento.add(tabla);
@@ -219,7 +219,7 @@ public class FacturaActivity extends AppCompatActivity {
             }
 
             if (p != null) {
-            total += p.getPrecio() * cant;
+            total += p.getPrecioV() * cant;
             }
         }
         return total;

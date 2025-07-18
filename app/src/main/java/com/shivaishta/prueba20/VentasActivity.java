@@ -149,9 +149,6 @@ public class VentasActivity extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
-
-
-
         dialog.show();
     }
 

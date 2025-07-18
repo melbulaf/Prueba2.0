@@ -100,7 +100,7 @@ public class InventarioActivity extends AppCompatActivity{
                     productosSorted.sort((a, b) -> a.getCategoria().compareToIgnoreCase(b.getCategoria()));
                     break;
                 case "Precio":
-                    productosSorted.sort((a, b) -> Double.compare(a.getPrecio(), b.getPrecio()));
+                    productosSorted.sort((a, b) -> Double.compare(a.getPrecioV(), b.getPrecioV()));
                     break;
                 case "Cantidad":
                     productosSorted.sort((a, b) -> Integer.compare(a.getCantidad(), b.getCantidad()));
@@ -160,7 +160,7 @@ public class InventarioActivity extends AppCompatActivity{
                 tvCategoria.setLayoutParams(new TableRow.LayoutParams(0, MATCH_PARENT, 0.2f));
 
                 TextView tvPrecio = new TextView(this);
-                tvPrecio.setText(String.valueOf(p.getPrecio()));
+                tvPrecio.setText(String.valueOf(p.getPrecioV()));
                 if (p.getCantidad()<=0) {
                     tvPrecio.setBackgroundResource(R.drawable.casilla_error);
                 } else {
@@ -281,7 +281,7 @@ public class InventarioActivity extends AppCompatActivity{
                 tvCategoria.setLayoutParams(new TableRow.LayoutParams(0, MATCH_PARENT, 0.2f));
 
                 TextView tvPrecio = new TextView(this);
-                tvPrecio.setText(String.valueOf(encontrado.getPrecio()));
+                tvPrecio.setText(String.valueOf(encontrado.getPrecioV()));
                 if (encontrado.getCantidad()<=0) {
                     tvPrecio.setBackgroundResource(R.drawable.casilla_error);
                 } else {

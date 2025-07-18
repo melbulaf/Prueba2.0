@@ -56,7 +56,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
 
             for (Producto p : Producto.productos) {
                 if (p.getCodigo() == codigo) {
-                    total += p.getPrecio() * cant;
+                    total += p.getPrecioV() * cant;
                     totalCantidad += cant;
                     break;
                 }

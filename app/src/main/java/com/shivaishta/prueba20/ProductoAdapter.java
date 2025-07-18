@@ -1,58 +1,91 @@
 package com.shivaishta.prueba20;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class ProductoAdapter extends RecyclerView.Adapter<ProductoAdapter.ProductoViewHolder> {
 
-    private final List<Producto> listaProductos;
+    private final List<Producto> productos;
+    private int selectedPosition = RecyclerView.NO_POSITION;
 
-    public ProductoAdapter(List<Producto> listaProductos) {
-        this.listaProductos = listaProductos;
+    public ProductoAdapter(List<Producto> productos) {
+        this.productos = productos;
     }
 
-    @NonNull
     @Override
-    public ProductoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View vista = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_producto, parent, false);
+    public ProductoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View vista = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_item_producto, parent, false);
         return new ProductoViewHolder(vista);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductoViewHolder holder, int position) {
-        Producto producto = listaProductos.get(position);
+    public void onBindViewHolder(ProductoViewHolder holder, int position) {
+        Producto producto = productos.get(position);
+
+        holder.txtNombre.setText(producto.getNombre());
         holder.txtCodigo.setText("Código: " + producto.getCodigo());
-        holder.txtNombre.setText("Nombre: " + producto.getNombre());
-        holder.txtCategoria.setText("Categoría: " + producto.getCategoria());
-        holder.txtCantidad.setText("Cantidad: " + producto.getCantidad());
         holder.txtPrecioCompra.setText("Precio compra: $" + producto.getPrecioC());
-        holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecio());
+        holder.txtPrecioVenta.setText("Precio venta: $" + producto.getPrecioV());
+        holder.txtCantidad.setText("Cantidad: " + producto.getCantidad());
+        holder.txtCategoria.setText("Categoría: " + producto.getCategoria());
+
+        // Cambio de color si está seleccionado
+        if (position == selectedPosition) {
+            holder.cardView.setCardBackgroundColor(Color.parseColor("#FFEB3B")); // Amarillo
+        } else {
+            holder.cardView.setCardBackgroundColor(Color.WHITE);
+        }
+
+        // Selección al hacer clic
+        holder.itemView.setOnClickListener(v -> {
+            notifyItemChanged(selectedPosition);
+            selectedPosition = holder.getAdapterPosition();
+            notifyItemChanged(selectedPosition);
+        });
     }
 
     @Override
     public int getItemCount() {
-        return listaProductos.size();
+        return productos.size();
     }
 
-    public static class ProductoViewHolder extends RecyclerView.ViewHolder {
-        TextView txtCodigo, txtNombre, txtCategoria, txtCantidad, txtPrecioCompra, txtPrecioVenta, txtUrgente;
+    public Producto getSelectedProducto() {
+        if (selectedPosition != RecyclerView.NO_POSITION) {
+            return productos.get(selectedPosition);
+        }
+        return null;
+    }
 
-        public ProductoViewHolder(@NonNull View itemView) {
+    public void clearSelection() {
+        int oldPosition = selectedPosition;
+        selectedPosition = RecyclerView.NO_POSITION;
+        if (oldPosition != RecyclerView.NO_POSITION) {
+            notifyItemChanged(oldPosition);
+        }
+    }
+
+    static class ProductoViewHolder extends RecyclerView.ViewHolder {
+        TextView txtNombre, txtCodigo, txtPrecioCompra, txtPrecioVenta, txtCantidad, txtCategoria;
+        CardView cardView;
+
+        ProductoViewHolder(View itemView) {
             super(itemView);
-            txtCodigo = itemView.findViewById(R.id.txtCodigo);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtCategoria = itemView.findViewById(R.id.txtCategoria);
-            txtCantidad = itemView.findViewById(R.id.txtCantidad);
+            txtNombre = itemView.findViewById(R.id.txtNombreProducto);
+            txtCodigo = itemView.findViewById(R.id.txtCodigoProducto);
             txtPrecioCompra = itemView.findViewById(R.id.txtPrecioCompra);
             txtPrecioVenta = itemView.findViewById(R.id.txtPrecioVenta);
-            txtUrgente = itemView.findViewById(R.id.txtUrgencia);
+            txtCantidad = itemView.findViewById(R.id.txtCantidad);
+            txtCategoria = itemView.findViewById(R.id.txtCategoria);
+            cardView = (CardView) itemView;
         }
     }
 }

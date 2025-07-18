@@ -103,7 +103,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             }
 
             if (producto != null) {
-                double subtotal = producto.getPrecio() * cant; // Usar precio de venta
+                double subtotal = producto.getPrecioV() * cant;
                 total += subtotal;
 
                 TextView tvProducto = new TextView(this);
