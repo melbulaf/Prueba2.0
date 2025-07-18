@@ -116,12 +116,17 @@ public class InventarioActivity extends AppCompatActivity{
             for (Producto p : productosSorted) {
                 TableRow fila = new TableRow(this);
                 fila.setLayoutParams(new TableRow.LayoutParams(
-                        MATCH_PARENT,
+                        TableRow.LayoutParams.MATCH_PARENT,
                         WRAP_CONTENT));
 
                 TextView tvCodigo = new TextView(this);
                 tvCodigo.setText(String.valueOf(p.getCodigo()));
-                tvCodigo.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvCodigo.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCodigo.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
+                
                 tvCodigo.setPadding(1, 4, 1, 4);
                 tvCodigo.setTextColor(Color.BLACK);
                 tvCodigo.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -130,7 +135,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvNombre = new TextView(this);
                 tvNombre.setText(String.valueOf(p.getNombre()));
-                tvNombre.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvNombre.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvNombre.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvNombre.setPadding(1, 4, 1, 4);
                 tvNombre.setTextColor(Color.BLACK);
                 tvNombre.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -139,7 +148,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvCategoria = new TextView(this);
                 tvCategoria.setText(String.valueOf(p.getCategoria()));
-                tvCategoria.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvCategoria.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCategoria.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvCategoria.setPadding(1, 4, 1, 4);
                 tvCategoria.setTextColor(Color.BLACK);
                 tvCategoria.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -148,7 +161,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvPrecio = new TextView(this);
                 tvPrecio.setText(String.valueOf(p.getPrecio()));
-                tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvPrecio.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvPrecio.setPadding(3, 4, 3, 4);
                 tvPrecio.setTextColor(Color.BLACK);
                 tvPrecio.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -157,7 +174,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvPrecioC = new TextView(this);
                 tvPrecioC.setText(String.valueOf(p.getPrecioC()));
-                tvPrecioC.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvPrecioC.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvPrecioC.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvPrecioC.setPadding(3, 4, 3, 4);
                 tvPrecioC.setTextColor(Color.BLACK);
                 tvPrecioC.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -166,7 +187,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvCantidad = new TextView(this);
                 tvCantidad.setText(String.valueOf(p.getCantidad()));
-                tvCantidad.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (p.getCantidad()<=0) {
+                    tvCantidad.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCantidad.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvCantidad.setPadding(3, 4, 3, 4);
                 tvCantidad.setTextColor(Color.BLACK);
                 tvCantidad.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -213,12 +238,16 @@ public class InventarioActivity extends AppCompatActivity{
                 }
                 TableRow fila = new TableRow(this);
                 fila.setLayoutParams(new TableRow.LayoutParams(
-                        MATCH_PARENT,
+                        TableRow.LayoutParams.MATCH_PARENT,
                         WRAP_CONTENT));
 
                 TextView tvCodigo = new TextView(this);
                 tvCodigo.setText(String.valueOf(encontrado.getCodigo()));
-                tvCodigo.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvCodigo.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCodigo.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvCodigo.setPadding(1, 4, 1, 4);
                 tvCodigo.setTextColor(Color.BLACK);
                 tvCodigo.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -227,7 +256,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvNombre = new TextView(this);
                 tvNombre.setText(String.valueOf(encontrado.getNombre()));
-                tvNombre.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvNombre.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvNombre.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvNombre.setPadding(1, 4, 1, 4);
                 tvNombre.setTextColor(Color.BLACK);
                 tvNombre.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -236,7 +269,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvCategoria = new TextView(this);
                 tvCategoria.setText(String.valueOf(encontrado.getCategoria()));
-                tvCategoria.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvCategoria.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCategoria.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvCategoria.setPadding(1, 4, 1, 4);
                 tvCategoria.setTextColor(Color.BLACK);
                 tvCategoria.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -245,7 +282,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvPrecio = new TextView(this);
                 tvPrecio.setText(String.valueOf(encontrado.getPrecio()));
-                tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvPrecio.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvPrecio.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvPrecio.setPadding(3, 4, 3, 4);
                 tvPrecio.setTextColor(Color.BLACK);
                 tvPrecio.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -254,7 +295,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvPrecioC = new TextView(this);
                 tvPrecioC.setText(String.valueOf(encontrado.getPrecioC()));
-                tvPrecioC.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvPrecioC.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvPrecioC.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvPrecioC.setPadding(3, 4, 3, 4);
                 tvPrecioC.setTextColor(Color.BLACK);
                 tvPrecioC.setTypeface(Typeface.create("casual", Typeface.NORMAL));
@@ -263,7 +308,11 @@ public class InventarioActivity extends AppCompatActivity{
 
                 TextView tvCantidad = new TextView(this);
                 tvCantidad.setText(String.valueOf(encontrado.getCantidad()));
-                tvCantidad.setBackgroundResource(R.drawable.casilla_simple_background);
+                if (encontrado.getCantidad()<=0) {
+                    tvCantidad.setBackgroundResource(R.drawable.casilla_error);
+                } else {
+                    tvCantidad.setBackgroundResource(R.drawable.casilla_simple_background);
+                }
                 tvCantidad.setPadding(3, 4, 3, 4);
                 tvCantidad.setTextColor(Color.BLACK);
                 tvCantidad.setTypeface(Typeface.create("casual", Typeface.NORMAL));
