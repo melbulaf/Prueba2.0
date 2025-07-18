@@ -48,10 +48,10 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         btnFacturar.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
-        btnFacturar.setText("Generar Factura");
+        btnFacturar.setText("Confirmar Venta");
         btnFacturar.setBackgroundColor(Color.parseColor("#3F51B5"));
         btnFacturar.setTextColor(Color.WHITE);
-        btnFacturar.setOnClickListener(v -> abrirFacturaActivity());
+        btnFacturar.setOnClickListener(v -> abrirVentaActivity());
 
         // Agregar botón al layout
         LinearLayout containerBotones = findViewById(R.id.containerBotones);
@@ -132,8 +132,8 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         }
     }
 
-    private void abrirFacturaActivity() {
-        Intent intent = new Intent(this, FacturaActivity.class);
+    private void abrirVentaActivity() {
+        Intent intent = new Intent(this, VentasActivity.class);
         intent.putExtra("pedido", pedido);
         startActivity(intent);
     }
