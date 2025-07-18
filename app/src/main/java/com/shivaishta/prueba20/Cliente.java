@@ -6,7 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Cliente {
+public class Cliente implements Serializable{
     private String nombre;
     private String telefono;
     private String direccion;
@@ -37,6 +37,10 @@ public class Cliente {
 
     public String getUrgencia() {
         return urgencia;
+    }
+
+    public String getUr() {
+        return urgencia == null ? "" : urgencia;
     }
 
     // Método requerido en otras clases (como RutaActivity o Factura)

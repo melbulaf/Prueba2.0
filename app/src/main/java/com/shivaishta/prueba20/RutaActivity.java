@@ -1,5 +1,5 @@
 package com.shivaishta.prueba20;
-
+import java.util.Arrays;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,8 +36,6 @@ public class RutaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ruta);
 
-        Pedido.cargarPed(this);
-
         imgRuta = findViewById(R.id.imgRuta);
         tvTituloRuta = findViewById(R.id.tvTituloRuta);
         tvFechaRuta = findViewById(R.id.tvFechaRuta);
@@ -53,6 +51,8 @@ public class RutaActivity extends AppCompatActivity {
         List<Ruta> rutas = Ruta.rutasPorDefecto();
         Ruta rutaDeHoy = Ruta.rutaDeHoy(rutas);
 
+        // Para pruebas: descomentar para forzar un día específico
+        // rutaDeHoy = new Ruta("Prueba", "miércoles");
 
         Log.d("RutaDebug", "Ruta de hoy: " + (rutaDeHoy != null ? rutaDeHoy.nombre : "null"));
 
@@ -77,11 +77,6 @@ public class RutaActivity extends AppCompatActivity {
             }, 4000);
 
             List<Pedido> pedidosHoy = obtenerPedidosPorDia(rutaDeHoy.dia);
-            List<Pedido> pedidosGuardados = obtenerPedidosGuardadosPorDia(rutaDeHoy.dia);
-
-
-            pedidosHoy.addAll(pedidosGuardados);
-
             Log.d("RutaDebug", "Pedidos encontrados: " + pedidosHoy.size());
 
             if (!pedidosHoy.isEmpty()) {
@@ -98,27 +93,13 @@ public class RutaActivity extends AppCompatActivity {
                 recyclerPedidos.setAdapter(null);
                 cardPedidos.setVisibility(View.VISIBLE);
             }
+
         } else {
             String diaTexto = new SimpleDateFormat("EEEE", new Locale("es", "ES")).format(new Date());
             tvTituloRuta.setText("NO HAY ENTREGAS HOY (" + diaTexto.toUpperCase() + ")");
             imgRuta.setVisibility(View.GONE);
             cardPedidos.setVisibility(View.GONE);
         }
-    }
-
-    private List<Pedido> obtenerPedidosGuardadosPorDia(String dia) {
-        List<Pedido> pedidosFiltrados = new ArrayList<>();
-        String fechaActual = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        String diaNormalizado = Ruta.normalizaDia(dia);
-
-        for (Pedido pedido : Pedido.pedidos) {
-            // Verificar si el pedido es para hoy
-            if (pedido.getFecha().equals(fechaActual)) {
-                pedidosFiltrados.add(pedido);
-            }
-        }
-
-        return pedidosFiltrados;
     }
 
     private String abrevDiaHoy() {
@@ -176,32 +157,32 @@ public class RutaActivity extends AppCompatActivity {
             case "lunes":
                 pedidos.add(new Pedido(
                         new Cliente("Lucía Díaz", "3101112233", "Calle 1 #23-45", "Entrega rápida"),
-                        List.of(String.valueOf(new Producto("Chocolatina", 10, 1.0).getCodigo()) + "_" + "10"),
+                        Arrays.asList("1001_10"), // Format: "productCode_quantity"
                         fecha));
                 break;
 
-            case "martes":
+            case "viernes":
                 pedidos.add(new Pedido(
                         new Cliente("Marco Pérez", "3122674001", "Cra 12 #30-10", ""),
-                        List.of(String.valueOf(new Producto("Galletas", 5, 2.0).getCodigo()) + "_" + "10"),
+                        Arrays.asList("1002_5", "1003_20"), // Multiple products
                         fecha));
                 pedidos.add(new Pedido(
                         new Cliente("Sara Gómez", "3009876543", "Transv 19 #6-45", null),
-                        List.of(String.valueOf(new Producto("Caramelos", 50, 0.2).getCodigo()) + "_" + "10"),
+                        Arrays.asList("1004_50"),
                         fecha));
                 break;
 
             case "miercoles":
                 pedidos.add(new Pedido(
                         new Cliente("Luis Torres", "3112223333", "Cl. 100 #20-30", "Urgente"),
-                        List.of(String.valueOf(new Producto("Paletas", 30, 1.2).getCodigo()) + "_" + "10"),
+                        Arrays.asList("1005_30"),
                         fecha));
                 break;
 
             case "sabado":
                 pedidos.add(new Pedido(
                         new Cliente("Mariana Castro", "3119991111", "Cll 50 #10-22", null),
-                        List.of(String.valueOf(new Producto("Chocorramo", 12, 1.5).getCodigo()) + "_" + "10"),
+                        Arrays.asList("1006_12"),
                         fecha));
                 break;
         }

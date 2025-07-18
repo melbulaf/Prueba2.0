@@ -19,12 +19,6 @@
             android:name=".ClientesActivity"
             android:exported="false" />
         <activity
-            android:name=".RegistroProductoActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RegistroClienteActivity"
-            android:exported="false" />
-        <activity
             android:name=".VentasActivity"
             android:exported="false" />
         <activity
@@ -45,6 +39,7 @@
         <activity
             android:name=".InventarioActivity"
             android:exported="false" />
+        <activity android:name=".RutaActivity" />
         <activity
             android:name=".PreloadActivity"
             android:exported="true">
@@ -57,13 +52,8 @@
         <activity
             android:name=".MainActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
         </activity>
-        <activity android:name=".RutaActivity" />
+
 
         <provider
             android:name="androidx.core.content.FileProvider"

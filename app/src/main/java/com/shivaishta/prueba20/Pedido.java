@@ -1,4 +1,3 @@
-// Pedido.java
 package com.shivaishta.prueba20;
 
 import android.content.Context;
@@ -16,10 +15,11 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Pedido implements Serializable {
+    private static final long serialVersionUID = 1L;
     public static ArrayList<Pedido> pedidos = new ArrayList<>();
+
     private Cliente cliente;
-    private List<String> productos; //formato string para codigo y cantidad separados por _
-                                    //Ej: {"1000_10","1001_7"}
+    private List<String> productos; // Formato "codigo_cantidad" ej: {"1000_10", "1001_7"}
     private String fecha;
     private boolean confirmado;
 
@@ -27,7 +27,7 @@ public class Pedido implements Serializable {
         this.cliente = cliente;
         this.productos = productos;
         this.fecha = fecha;
-        this.confirmado = false;;
+        this.confirmado = false;
         pedidos.add(this);
     }
 
@@ -40,10 +40,22 @@ public class Pedido implements Serializable {
     }
 
     // Getters
-    public Cliente getCliente() { return cliente; }
-    public List<String> getProductos() { return productos; }
-    public String getFecha() { return fecha; }
-    public boolean getConfirmado() {return confirmado;}
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public List<String> getProductos() {
+        return productos;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public boolean getConfirmado() {
+        return confirmado;
+    }
+
     public void confirmar() {
         for (String ped : this.productos) {
             String[] partes = ped.split("_");
@@ -59,7 +71,8 @@ public class Pedido implements Serializable {
             }
             if (encontrado != null) {
                 this.confirmado = true;
-                encontrado.setCantidad(encontrado.getCantidad() - cantidad);}
+                encontrado.setCantidad(encontrado.getCantidad() - cantidad);
+            }
         }
     }
 
@@ -84,35 +97,50 @@ public class Pedido implements Serializable {
     public static void cargarPed(Context context) {
         File archivoPedidos = new File(context.getFilesDir(), "pedidos.txt");
 
-        if (!archivoPedidos.exists()) return;
+        if (!archivoPedidos.exists()) {
+            System.out.println("Archivo pedidos.txt no existe.");
+            return;
+        }
 
         try (BufferedReader leer = new BufferedReader(new FileReader(archivoPedidos))) {
             Pedido.pedidos.clear();
             String linea;
             while ((linea = leer.readLine()) != null) {
-                String[] partes = linea.split("!");
-                if (partes.length != 4) continue;
-
-                List<String> productos = new ArrayList<>(Arrays.asList(partes[0].split(",")));
-                String cliente = partes[1];
-                String fecha = partes[2];
-                String confirmado = partes[3];
-                boolean conf = Boolean.parseBoolean(confirmado);
-                Cliente encontrado = null;
-                for (Cliente c : Cliente.getClientes()) {
-                    if (c.getNombre().equals(cliente)) {
-                        encontrado = c;
-                        break;
+                try {
+                    String[] partes = linea.split("!");
+                    if (partes.length != 4) {
+                        System.err.println("Línea malformada: " + linea);
+                        continue;
                     }
-                }
 
-                if (encontrado != null) {
-                    new Pedido(encontrado, productos, fecha, conf);
+                    List<String> productos = new ArrayList<>(Arrays.asList(partes[0].split(",")));
+                    String nombreCliente = partes[1].trim();
+                    String fecha = partes[2].trim();
+                    boolean confirmado = Boolean.parseBoolean(partes[3].trim());
+
+                    Cliente clienteEncontrado = null;
+                    for (Cliente c : Cliente.getClientes()) {
+                        if (c.getNombre().equals(nombreCliente)) {
+                            clienteEncontrado = c;
+                            break;
+                        }
+                    }
+
+                    if (clienteEncontrado == null) {
+                        System.err.println("Cliente no encontrado: " + nombreCliente);
+                        continue;
+                    }
+
+                    new Pedido(clienteEncontrado, productos, fecha, confirmado);
+
+                } catch (Exception e) {
+                    System.err.println("Error procesando línea: " + linea);
+                    e.printStackTrace();
                 }
             }
-        } catch (IOException | NumberFormatException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
-
 }
+
