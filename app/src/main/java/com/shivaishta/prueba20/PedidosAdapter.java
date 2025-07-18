@@ -54,9 +54,9 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
 
-            for (Producto p : Producto.productos) {
+            for (Producto p : Producto.getProductos()) {
                 if (p.getCodigo() == codigo) {
-                    total += p.getPrecioV() * cant;
+                    total += p.getPrecio() * cant;
                     totalCantidad += cant;
                     break;
                 }
@@ -101,7 +101,7 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
 
-            for (Producto p : Producto.productos) {
+            for (Producto p : Producto.getProductos()) {
                 if (p.getCodigo() == codigo) {
                     TableRow fila = new TableRow(context);
                     fila.addView(createDataCell(String.valueOf(p.getCodigo())));

@@ -152,8 +152,8 @@ public class FacturaActivity extends AppCompatActivity {
                 for (ProductoCantidad pc : productos) {
                     tabla.addCell(new Paragraph(String.valueOf(pc.cantidad), fuenteSub));
                     tabla.addCell(new Paragraph(pc.producto.getNombre(), fuenteSub));
-                    tabla.addCell(new Paragraph(String.format("$%,.2f", pc.producto.getPrecioV()), fuenteSub));
-                    tabla.addCell(new Paragraph(String.format("$%,.2f", pc.producto.getPrecioV() * pc.cantidad), fuenteSub));
+                    tabla.addCell(new Paragraph(String.format("$%,.2f", pc.producto.getPrecio()), fuenteSub));
+                    tabla.addCell(new Paragraph(String.format("$%,.2f", pc.producto.getPrecio() * pc.cantidad), fuenteSub));
                 }
 
                 documento.add(tabla);
@@ -213,7 +213,7 @@ public class FacturaActivity extends AppCompatActivity {
     }
 
     private Producto findProductoByCodigo(int codigo) {
-        for (Producto p : Producto.productos) {
+        for (Producto p : Inventario.productos) { // ← USAR INVENTARIO
             if (p.getCodigo() == codigo) {
                 return p;
             }
@@ -224,7 +224,7 @@ public class FacturaActivity extends AppCompatActivity {
     private double calcularTotal(List<ProductoCantidad> productos) {
         double total = 0;
         for (ProductoCantidad pc : productos) {
-            total += pc.producto.getPrecioV() * pc.cantidad;
+            total += pc.producto.getPrecio() * pc.cantidad;
         }
         return total;
     }

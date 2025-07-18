@@ -1,14 +1,16 @@
 package com.shivaishta.prueba20;
 
+import android.content.Context;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.PrintWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 
-/**
- *
- * @author Samuel
- */
 public class Inventario {
 
-    // Inicializada para que nunca sea null
     public static ArrayList<Producto> productos = new ArrayList<>();
     public static Inventario instancia;
 
@@ -30,4 +32,61 @@ public class Inventario {
     public void agregarProducto(Producto producto) {
         productos.add(producto);
     }
+
+    public static void poblarProductosEjemplo() {
+        if (Inventario.productos == null) Inventario.productos = new ArrayList<>();
+        if (Inventario.productos.isEmpty()) {
+            new Producto("Arroz Diana", 1001, "Granos", 10, 3000, 3500);
+            new Producto("Aceite Premier", 1002, "Aceites", 15, 8500, 9500);
+            new Producto("Azúcar Mayagüez", 1003, "Endulzantes", 12, 3500, 4100);
+            new Producto("Sal Refisal", 1004, "Condimentos", 20, 1500, 1800);
+            new Producto("Frijol Rojo", 1005, "Granos", 8, 5000, 5700);
+            new Producto("Lenteja Verde", 1006, "Granos", 9, 4200, 4850);
+        }
+    }
+
+    public static void cargarProductos(Context context) {
+        File archivo = new File(context.getFilesDir(), "productos.txt");
+
+        if (!archivo.exists()) {
+            System.out.println("Archivo productos.txt no encontrado.");
+            return;
+        }
+
+        productos.clear();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = reader.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 6) {
+                    String nombre = partes[0];
+                    int codigo = Integer.parseInt(partes[1]);
+                    String categoria = partes[2];
+                    int cantidad = Integer.parseInt(partes[3]);
+                    int precioCompra = Integer.parseInt(partes[4]);
+                    int precioVenta = Integer.parseInt(partes[5]);
+
+                    new Producto(nombre, codigo, categoria, cantidad, precioCompra, precioVenta);
+                } else {
+                    System.err.println("Línea inválida en productos.txt: " + linea);
+                }
+            }
+        } catch (IOException | NumberFormatException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void guardarProductos(Context context) {
+        File archivo = new File(context.getFilesDir(), "productos.txt");
+
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(archivo))) {
+            for (Producto p : productos) {
+                writer.println(p.getNombre() + "," + p.getCodigo() + "," + p.getCategoria() + "," +
+                        p.getCantidad() + "," + p.getPrecioC() + "," + p.getPrecio());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

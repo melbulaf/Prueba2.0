@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.List;
-
 public class ProductosActivity extends AppCompatActivity {
 
     private RecyclerView recyclerProductos;
@@ -22,20 +20,19 @@ public class ProductosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialogo_producto);
 
-        Producto.cargarProductos(this);
+        Inventario.cargarProductos(this);  // Cargar desde archivo
+        Inventario.poblarProductosEjemplo();  // Solo si está vacío
 
         recyclerProductos = findViewById(R.id.recyclerProductos);
         recyclerProductos.setLayoutManager(new LinearLayoutManager(this));
-        productoAdapter = new ProductoAdapter(Producto.getProductos());
+        productoAdapter = new ProductoAdapter(Inventario.productos);
         recyclerProductos.setAdapter(productoAdapter);
 
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
         findViewById(R.id.btnAgregarProducto).setOnClickListener(v -> mostrarDialogoAgregar());
-
         findViewById(R.id.btnEditarProducto).setOnClickListener(v -> mostrarDialogoBuscarYEditar());
-
         findViewById(R.id.btnEliminarProducto).setOnClickListener(v -> mostrarDialogoEliminar());
     }
 
@@ -56,9 +53,9 @@ public class ProductosActivity extends AppCompatActivity {
                     int cantidad = Integer.parseInt(etCantidad.getText().toString().trim());
                     double precioV = Double.parseDouble(etPrecioV.getText().toString().trim());
                     double precioC = Double.parseDouble(etPrecioC.getText().toString().trim());
-
-                    Producto.agregarProducto(new Producto(nombre, cantidad, precioV, precioC, categoria));
-                    Producto.guardarProductos(this);
+                    int codigo = Inventario.productos.size() + 1;
+                    Inventario.productos.add(new Producto(nombre, codigo, categoria, cantidad, precioC, precioV));
+                    Inventario.guardarProductos(this);
                     productoAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton("Cancelar", null)
@@ -95,7 +92,7 @@ public class ProductosActivity extends AppCompatActivity {
 
         etNombre.setText(producto.getNombre());
         etCantidad.setText(String.valueOf(producto.getCantidad()));
-        etPrecioV.setText(String.valueOf(producto.getPrecioV()));
+        etPrecioV.setText(String.valueOf(producto.getPrecio()));
         etPrecioC.setText(String.valueOf(producto.getPrecioC()));
         etCategoria.setText(producto.getCategoria());
 
@@ -105,11 +102,11 @@ public class ProductosActivity extends AppCompatActivity {
                 .setPositiveButton("Guardar", (dialog, which) -> {
                     producto.setNombre(etNombre.getText().toString().trim());
                     producto.setCantidad(Integer.parseInt(etCantidad.getText().toString().trim()));
-                    producto.setPrecioV(Double.parseDouble(etPrecioV.getText().toString().trim()));
-                    producto.setPrecioC(Double.parseDouble(etPrecioC.getText().toString().trim()));
+                    producto.setPrecioVenta(Double.parseDouble(etPrecioV.getText().toString().trim()));
+                    producto.setPrecioCompra(Double.parseDouble(etPrecioC.getText().toString().trim()));
                     producto.setCategoria(etCategoria.getText().toString().trim());
 
-                    Producto.guardarProductos(this);
+                    Inventario.guardarProductos(this);
                     productoAdapter.notifyDataSetChanged();
                 })
                 .setNegativeButton("Cancelar", null)
@@ -127,8 +124,8 @@ public class ProductosActivity extends AppCompatActivity {
                     String nombre = input.getText().toString().trim();
                     Producto producto = buscarProductoPorNombre(nombre);
                     if (producto != null) {
-                        Producto.eliminarProducto(producto);
-                        Producto.guardarProductos(this);
+                        Inventario.productos.remove(producto);
+                        Inventario.guardarProductos(this);
                         productoAdapter.notifyDataSetChanged();
                         Toast.makeText(this, "Producto eliminado", Toast.LENGTH_SHORT).show();
                     } else {
@@ -140,7 +137,7 @@ public class ProductosActivity extends AppCompatActivity {
     }
 
     private Producto buscarProductoPorNombre(String nombre) {
-        for (Producto p : Producto.getProductos()) {
+        for (Producto p : Inventario.productos) {
             if (p.getNombre().equalsIgnoreCase(nombre)) {
                 return p;
             }

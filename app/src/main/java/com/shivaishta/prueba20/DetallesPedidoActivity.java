@@ -9,8 +9,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
-import java.text.NumberFormat;
+
 import java.util.Locale;
 
 public class DetallesPedidoActivity extends AppCompatActivity {
@@ -29,21 +30,19 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             return;
         }
 
-        // Configurar botón de volver
+        // Botón volver (arriba)
         ImageButton btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
 
-        // Configurar información del cliente
+        // Mostrar datos
         mostrarInfoCliente();
-
-        // Configurar lista de productos
         mostrarProductos();
 
-        // Configurar botón de volver
+        // Botón volver (abajo)
         Button btnVolver = findViewById(R.id.btnVolver);
         btnVolver.setOnClickListener(v -> finish());
 
-        // Agregar botón de facturación
+        // Botón confirmar venta
         Button btnFacturar = new Button(this);
         btnFacturar.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
@@ -53,7 +52,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         btnFacturar.setTextColor(Color.WHITE);
         btnFacturar.setOnClickListener(v -> abrirVentaActivity());
 
-        // Agregar botón al layout
+        // Agregar botón al layout si es necesario
         LinearLayout containerBotones = findViewById(R.id.containerBotones);
         if (containerBotones == null) {
             containerBotones = new LinearLayout(this);
@@ -63,7 +62,8 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             containerBotones.setOrientation(LinearLayout.VERTICAL);
             containerBotones.setPadding(16, 16, 16, 16);
 
-            @SuppressLint("WrongViewCast") LinearLayout mainLayout = findViewById(R.id.mainLayout);
+            @SuppressLint("WrongViewCast")
+            LinearLayout mainLayout = findViewById(R.id.mainLayout);
             mainLayout.addView(containerBotones);
         }
         containerBotones.addView(btnFacturar);
@@ -92,31 +92,23 @@ public class DetallesPedidoActivity extends AppCompatActivity {
 
         for (String p : pedido.getProductos()) {
             String[] partes = p.split("_");
+            if (partes.length != 2) continue;
+
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
-            Producto producto = null;
 
-            for (Producto pp : Inventario.productos) {
-                if (pp.getCodigo() == codigo) {
-                    producto = pp;
-                    break;
-                }
-            }
+            Producto producto = Producto.buscarPorCodigo(codigo); // ✅ Usamos Inventario.productos desde Producto
 
             if (producto != null) {
-                double subtotal = producto.getPrecioV() * cant;
+                double subtotal = producto.getPrecio() * cant;
                 total += subtotal;
 
                 TextView tvProducto = new TextView(this);
                 tvProducto.setLayoutParams(new LinearLayout.LayoutParams(
                         LinearLayout.LayoutParams.MATCH_PARENT,
                         LinearLayout.LayoutParams.WRAP_CONTENT));
-
                 tvProducto.setText(String.format(Locale.getDefault(),
-                        "• %s (Cantidad: %d)",
-                        producto.getNombre(),
-                        cant));
-
+                        "• %s (Cantidad: %d)", producto.getNombre(), cant));
                 tvProducto.setTextSize(16);
                 tvProducto.setTextColor(Color.parseColor("#333333"));
                 tvProducto.setPadding(8, 12, 8, 12);
@@ -131,6 +123,13 @@ public class DetallesPedidoActivity extends AppCompatActivity {
                 containerProductos.addView(separator);
             }
         }
+
+        // Si quieres mostrar el total al final:
+        /*
+        TextView tvTotal = new TextView(this);
+        tvTotal.setText("Total: " + NumberFormat.getCurrencyInstance(new Locale("es", "CO")).format(total));
+        containerProductos.addView(tvTotal);
+        */
     }
 
     private void abrirVentaActivity() {

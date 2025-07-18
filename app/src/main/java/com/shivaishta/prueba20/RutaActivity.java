@@ -51,9 +51,6 @@ public class RutaActivity extends AppCompatActivity {
         List<Ruta> rutas = Ruta.rutasPorDefecto();
         Ruta rutaDeHoy = Ruta.rutaDeHoy(rutas);
 
-        // Para pruebas: descomentar para forzar un día específico
-        // rutaDeHoy = new Ruta("Prueba", "miércoles");
-
         Log.d("RutaDebug", "Ruta de hoy: " + (rutaDeHoy != null ? rutaDeHoy.nombre : "null"));
 
         if (rutaDeHoy != null) {
@@ -75,6 +72,9 @@ public class RutaActivity extends AppCompatActivity {
                     imgHandler.postDelayed(this, 4000);
                 }
             }, 4000);
+
+            // <- AQUÍ agregamos productos de ejemplo antes de crear los pedidos
+            Inventario.poblarProductosEjemplo();
 
             List<Pedido> pedidosHoy = obtenerPedidosPorDia(rutaDeHoy.dia);
             Log.d("RutaDebug", "Pedidos encontrados: " + pedidosHoy.size());

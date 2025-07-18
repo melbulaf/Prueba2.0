@@ -3,112 +3,97 @@ package com.shivaishta.prueba20;
 import android.content.Context;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
-public class Producto {
-    private final int codigo;
-    private static int contador = 1000;
+public class Producto implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    private int codigo;
     private String nombre;
-    private int cantidad;
-    private double precioV;
-    private double precioC;
     private String categoria;
+    private int cantidad;
+    private double precioCompra;
+    private double precioVenta;
 
-    private static final List<Producto> listaProductos = new ArrayList<>();
-    public static ArrayList<Producto> productos;
-
-    // Constructor
-    public Producto(String nombre, int cantidad, double precioV, double precioC, String categoria) {
+    public Producto(String nombre, int codigo, String categoria, int cantidad, double precioCompra, double precioVenta) {
+        this.codigo = codigo;
         this.nombre = nombre;
-        this.cantidad = cantidad;
-        this.precioV = precioV;
-        this.precioC = precioC;
-        this.categoria = categoria;
-        this.codigo = contador++;
-    }
-
-    public Producto(String nombre, String categoria, double precio, int cantidad) {
-        this.nombre = nombre;
-        this.codigo = contador++;
-        this.precioV = precio;
-        this.precioC = precio - (precio*0.15);
         this.categoria = categoria;
         this.cantidad = cantidad;
-        Inventario.productos.add(this); }
-
-    public Producto(String nombre, int id, double precio) {
-        this.nombre = nombre;
-        this.codigo = id;
-        this.precioV = precio;
+        this.precioCompra = precioCompra;
+        this.precioVenta = precioVenta;
+        Inventario.productos.add(this);
     }
-
 
     // Getters
+    public int getCodigo() {
+        return codigo;
+    }
+
     public String getNombre() {
         return nombre;
-    }
-
-    public int getCantidad() {
-        return cantidad;
-    }
-
-    public double getPrecioV() {
-        return precioV;
-    }
-
-    public double getPrecioC() {
-        return precioC;
     }
 
     public String getCategoria() {
         return categoria;
     }
 
-    public int getCodigo() {
-        return codigo;
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public double getPrecioC() {
+        return precioCompra;
+    }
+
+    public double getPrecio() {
+        return precioVenta;
     }
 
     // Setters
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
 
-    public void setPrecioV(double precioV) {
-        this.precioV = precioV;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setPrecioC(double precioC) {
-        this.precioC = precioC;
+    public void setPrecioVenta(double precioVenta) {
+        this.precioVenta = precioVenta;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public void setPrecioCompra(double precioCompra) {
+        this.precioCompra = precioCompra;
     }
 
-    // Métodos estáticos
+    public void setCategoria(String Categoria) {
+        this.categoria = Categoria;
+    }
+
+    // Lista de productos
     public static List<Producto> getProductos() {
-        return listaProductos;
+        return Inventario.productos;
     }
 
-    public static void agregarProducto(Producto p) {
-        listaProductos.add(p);
+    // Buscar por código
+    public static Producto buscarPorCodigo(int codigo) {
+        for (Producto p : Inventario.productos) {
+            if (p.getCodigo() == codigo) {
+                return p;
+            }
+        }
+        return null;
     }
 
-    public static void eliminarProducto(Producto p) {
-        listaProductos.remove(p);
-    }
-
-    // Guardar productos a archivo
+    // Guardar productos en archivo
     public static void guardarProductos(Context context) {
         File archivo = new File(context.getFilesDir(), "productos.txt");
-        try (PrintWriter pw = new PrintWriter(new FileWriter(archivo))) {
-            for (Producto p : listaProductos) {
-                pw.println(p.nombre + "," + p.cantidad + "," + p.precioV + "," + p.precioC + "," + p.categoria + "," + p.codigo);
+
+        try (PrintWriter writer = new PrintWriter(new FileOutputStream(archivo))) {
+            for (Producto p : Inventario.productos) {
+                writer.println(p.getNombre() + "," + p.getCodigo() + "," + p.getCategoria() + "," +
+                        p.getCantidad() + "," + p.getPrecioC() + "," + p.getPrecio());
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -117,30 +102,32 @@ public class Producto {
 
     // Cargar productos desde archivo
     public static void cargarProductos(Context context) {
-        listaProductos.clear();
         File archivo = new File(context.getFilesDir(), "productos.txt");
-        if (!archivo.exists()) return;
 
-        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+        if (!archivo.exists()) {
+            System.out.println("Archivo productos.txt no encontrado.");
+            return;
+        }
+
+        Inventario.productos.clear();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
             String linea;
-            while ((linea = br.readLine()) != null) {
-                String[] partes = linea.split(",", -1);
-                if (partes.length >= 7) {
-                    try {
-                        String nombre = partes[0];
-                        int cantidad = Integer.parseInt(partes[1]);
-                        double precioV = Double.parseDouble(partes[2]);
-                        double precioC = Double.parseDouble(partes[3]);
-                        String categoria = partes[4];
-                        String urgente = partes[6];
-                        Producto p = new Producto(nombre, cantidad, precioV, precioC, categoria);
-                        listaProductos.add(p);
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
+            while ((linea = reader.readLine()) != null) {
+                String[] partes = linea.split(",");
+                if (partes.length == 6) {
+                    String nombre = partes[0];
+                    int codigo = Integer.parseInt(partes[1]);
+                    String categoria = partes[2];
+                    int cantidad = Integer.parseInt(partes[3]);
+                    int precioCompra = Integer.parseInt(partes[4]);
+                    int precioVenta = Integer.parseInt(partes[5]);
+                    new Producto(nombre, codigo, categoria, cantidad, precioCompra, precioVenta);
+                } else {
+                    System.err.println("Línea inválida en productos.txt: " + linea);
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
     }
