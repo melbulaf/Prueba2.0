@@ -2,14 +2,7 @@ package com.shivaishta.prueba20;
 
 import android.content.Context;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +18,7 @@ public class Pedido implements Serializable {
 
     public Pedido(Cliente cliente, List<String> productos, String fecha) {
         this.cliente = cliente;
-        this.productos = productos;
+        this.productos = (productos != null) ? productos : new ArrayList<>();
         this.fecha = fecha;
         this.confirmado = false;
         pedidos.add(this);
@@ -33,7 +26,7 @@ public class Pedido implements Serializable {
 
     public Pedido(Cliente cliente, List<String> productos, String fecha, boolean estado) {
         this.cliente = cliente;
-        this.productos = productos;
+        this.productos = (productos != null) ? productos : new ArrayList<>();
         this.fecha = fecha;
         this.confirmado = estado;
         pedidos.add(this);
@@ -45,6 +38,7 @@ public class Pedido implements Serializable {
     }
 
     public List<String> getProductos() {
+        if (productos == null) productos = new ArrayList<>();
         return productos;
     }
 
@@ -57,7 +51,7 @@ public class Pedido implements Serializable {
     }
 
     public void confirmar() {
-        for (String ped : this.productos) {
+        for (String ped : this.getProductos()) {
             String[] partes = ped.split("_");
             if (partes.length != 2) continue;
             int codigoBuscado = Integer.parseInt(partes[0]);
@@ -143,4 +137,3 @@ public class Pedido implements Serializable {
         }
     }
 }
-

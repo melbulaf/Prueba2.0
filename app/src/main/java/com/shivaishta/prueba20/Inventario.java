@@ -8,11 +8,12 @@ import java.util.ArrayList;
  */
 public class Inventario {
 
-    public static ArrayList<Producto> productos;
+    // Inicializada para que nunca sea null
+    public static ArrayList<Producto> productos = new ArrayList<>();
     public static Inventario instancia;
 
     public Inventario() {
-        productos = Producto.productos;
+        // Ya está inicializada, así que aquí no es necesario reasignar
     }
 
     public static Inventario getInstancia() {

@@ -77,7 +77,8 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         tvCliente.setText("Cliente: " + pedido.getCliente().getNombre());
         tvDireccion.setText("Dirección: " + pedido.getCliente().getDireccion());
 
-        if (!pedido.getCliente().getUrgencia().isEmpty()) {
+        String urgencia = pedido.getCliente().getUrgencia();
+        if (urgencia != null && !urgencia.isEmpty()) {
             tvInfoUrgencia.setVisibility(View.VISIBLE);
             tvInfoUrgencia.setText("¡PEDIDO URGENTE!");
         } else {
