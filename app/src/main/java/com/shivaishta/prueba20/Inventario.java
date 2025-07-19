@@ -1,6 +1,8 @@
 package com.shivaishta.prueba20;
 
 import android.content.Context;
+import android.util.Log;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
@@ -35,10 +37,13 @@ public class Inventario {
 
 
     public static void cargarProductos(Context context) {
+
         File archivo = new File(context.getFilesDir(), "productos.txt");
+        Log.d("DEBUG_CARGAR", "Cargando productos...");
+        Log.d("DEBUG_CARGAR", "Archivo existe: " + archivo.exists());
 
         if (!archivo.exists()) {
-            System.out.println("Archivo productos.txt no encontrado.");
+            Log.d("DEBUG_CARGAR", "Archivo productos.txt no encontrado.");
             return;
         }
 
@@ -46,6 +51,14 @@ public class Inventario {
 
         try (BufferedReader reader = new BufferedReader(new FileReader(archivo))) {
             String linea;
+            StringBuilder contenido = new StringBuilder();
+            BufferedReader readerDebug = new BufferedReader(new FileReader(archivo));
+            String lineaDebug;
+            while ((lineaDebug = readerDebug.readLine()) != null) {
+                Log.d("DEBUG_ARCHIVO", "Línea: " + lineaDebug);
+                contenido.append(lineaDebug).append("\n");
+            }
+            readerDebug.close();
             while ((linea = reader.readLine()) != null) {
                 String[] partes = linea.split(",");
                 if (partes.length == 6) {
@@ -53,26 +66,34 @@ public class Inventario {
                     int codigo = Integer.parseInt(partes[1]);
                     String categoria = partes[2];
                     int cantidad = Integer.parseInt(partes[3]);
-                    int precioCompra = Integer.parseInt(partes[4]);
-                    int precioVenta = Integer.parseInt(partes[5]);
+                    double precioCompra = Double.parseDouble(partes[4]);
+                    double precioVenta = Double.parseDouble(partes[5]);
 
-                    new Producto(nombre, codigo, categoria, cantidad, precioCompra, precioVenta);
+                    Producto nuevo = new Producto(nombre, codigo, categoria, cantidad, precioCompra, precioVenta);
+                    productos.add(nuevo);
+                    Log.d("DEBUG_CARGAR", "Producto cargado: " + nuevo.getNombre());
                 } else {
-                    System.err.println("Línea inválida en productos.txt: " + linea);
+                    Log.e("DEBUG_CARGAR", "Línea inválida: " + linea);
                 }
             }
         } catch (IOException | NumberFormatException e) {
             e.printStackTrace();
         }
+
+        Log.d("DEBUG_CARGAR", "TOTAL productos cargados: " + productos.size());
     }
+
     public static void guardarProductos(Context context) {
+        Log.d("DEBUG_GUARDAR", "Guardando productos: tamaño = " + productos.size());
         File archivo = new File(context.getFilesDir(), "productos.txt");
 
         try (PrintWriter writer = new PrintWriter(new FileOutputStream(archivo))) {
             for (Producto p : productos) {
+                Log.d("DEBUG_GUARDAR", p.getNombre() + " - Cantidad: " + p.getCantidad());
                 writer.println(p.getNombre() + "," + p.getCodigo() + "," + p.getCategoria() + "," +
                         p.getCantidad() + "," + p.getPrecioC() + "," + p.getPrecio());
             }
+
         } catch (IOException e) {
             e.printStackTrace();
         }
