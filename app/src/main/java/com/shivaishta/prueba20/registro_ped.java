@@ -216,9 +216,22 @@ public class registro_ped extends AppCompatActivity {
 
                 if (!nproductos.isEmpty() && clienteobj != null && !fecha.isEmpty()) {
                     //Registrar objeto pedido
-                    Pedido npedido = new Pedido(clienteobj, nproductos, fecha, true);
+                    Pedido npedido = new Pedido(clienteobj, nproductos, fecha);
                     //Actualizar Productos
-                    npedido.confirmar();
+                    if (npedido.confirmar()) {
+                        android.widget.Toast.makeText(registro_ped.this,
+                                "Pedido confirmado.",
+                                android.widget.Toast.LENGTH_LONG).show();
+
+                        Inventario.guardarProductos(registro_ped.this);
+
+                    } else if (!npedido.confirmar()) {
+
+                        android.widget.Toast.makeText(registro_ped.this,
+                                "Cantidad insuficiente, no se confirmo.",
+                                android.widget.Toast.LENGTH_LONG).show();
+
+                    }
                     //Guardar pedidos
                     Pedido.guardarPed(registro_ped.this);
                     //Guardar Inventario actualizado

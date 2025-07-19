@@ -119,8 +119,19 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         // Buscar el pedido real en la lista y confirmar ese
         for (Pedido p : Pedido.pedidos) {
             if (p == pedido || pedidosIguales(p, pedido)) {
-                p.confirmar();
-                break;
+                if (p.confirmar()) {
+                    Inventario.guardarProductos(this);
+                    android.widget.Toast.makeText(DetallesPedidoActivity.this,
+                            "Pedido confirmado.",
+                            android.widget.Toast.LENGTH_LONG).show();
+                    break;
+            } else if (!p.confirmar()) {
+
+                    android.widget.Toast.makeText(DetallesPedidoActivity.this,
+                            "Cantidad insuficiente, no se confirmo.",
+                            android.widget.Toast.LENGTH_LONG).show();
+
+                }
             }
         }
 

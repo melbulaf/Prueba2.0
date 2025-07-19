@@ -12,20 +12,6 @@ public class Pedido implements Serializable {
     private String fecha;
     private boolean confirmado;
 
-    private void descontarInventario() {
-        for (String ped : this.productos) {
-            String[] partes = ped.split("_");
-            if (partes.length != 2) continue;
-            int codigoBuscado = Integer.parseInt(partes[0]);
-            int cantidad = Integer.parseInt(partes[1]);
-
-            Producto encontrado = Producto.buscarPorCodigo(codigoBuscado);
-            if (encontrado != null) {
-                encontrado.setCantidad(encontrado.getCantidad() - cantidad);
-            }
-        }
-    }
-
 
 
     public Pedido(Cliente cliente, List<String> productos, String fecha) {
@@ -33,7 +19,6 @@ public class Pedido implements Serializable {
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = false;
-        descontarInventario();
         Pedido.pedidos.add(this);
     }
 
@@ -42,9 +27,6 @@ public class Pedido implements Serializable {
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = estado;
-        if (!estado) {
-            descontarInventario();
-        }
         Pedido.pedidos.add(this);
     }
 
@@ -53,8 +35,26 @@ public class Pedido implements Serializable {
     public String getFecha() { return fecha; }
     public boolean getConfirmado() { return confirmado; }
 
-    public void confirmar() {
+    public boolean confirmar() {
         this.confirmado = true;
+        boolean returnvar = false;
+        for (String ped : this.productos) {
+            String[] partes = ped.split("_");
+            if (partes.length != 2) continue;
+            int codigoBuscado = Integer.parseInt(partes[0]);
+            int cantidad = Integer.parseInt(partes[1]);
+            Producto encontrado = Producto.buscarPorCodigo(codigoBuscado);
+            if (encontrado != null && encontrado.getCantidad() >= cantidad) {
+                encontrado.setCantidad(encontrado.getCantidad() - cantidad);
+                returnvar = true;
+            } else if (encontrado != null && encontrado.getCantidad() < cantidad) {
+                returnvar = false;
+
+            }
+        }
+
+        return returnvar;
+
     }
 
     public static void guardarPed(Context context) {
