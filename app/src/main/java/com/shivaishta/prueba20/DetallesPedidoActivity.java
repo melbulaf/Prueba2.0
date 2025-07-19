@@ -1,6 +1,8 @@
+// DetallesPedidoActivity.java actualizado
 package com.shivaishta.prueba20;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -50,22 +52,10 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         btnFacturar.setText("Confirmar Venta");
         btnFacturar.setBackgroundColor(Color.parseColor("#3F51B5"));
         btnFacturar.setTextColor(Color.WHITE);
-        btnFacturar.setOnClickListener(v -> abrirVentaActivity());
+        btnFacturar.setOnClickListener(v -> confirmarVenta());
 
-        // Agregar botón al layout si es necesario
+        // Agregar botón al layout
         LinearLayout containerBotones = findViewById(R.id.containerBotones);
-        if (containerBotones == null) {
-            containerBotones = new LinearLayout(this);
-            containerBotones.setLayoutParams(new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT));
-            containerBotones.setOrientation(LinearLayout.VERTICAL);
-            containerBotones.setPadding(16, 16, 16, 16);
-
-            @SuppressLint("WrongViewCast")
-            LinearLayout mainLayout = findViewById(R.id.mainLayout);
-            mainLayout.addView(containerBotones);
-        }
         containerBotones.addView(btnFacturar);
     }
 
@@ -80,7 +70,8 @@ public class DetallesPedidoActivity extends AppCompatActivity {
         String urgencia = pedido.getCliente().getUrgencia();
         if (urgencia != null && !urgencia.isEmpty()) {
             tvInfoUrgencia.setVisibility(View.VISIBLE);
-            tvInfoUrgencia.setText("¡PEDIDO URGENTE!");
+            tvInfoUrgencia.setTextColor(Color.RED);
+            tvInfoUrgencia.setText("\u00a1URGENTE! (Hora de cierre: " + urgencia + ")");
         } else {
             tvInfoUrgencia.setVisibility(View.GONE);
         }
@@ -97,7 +88,7 @@ public class DetallesPedidoActivity extends AppCompatActivity {
             int codigo = Integer.parseInt(partes[0]);
             int cant = Integer.parseInt(partes[1]);
 
-            Producto producto = Producto.buscarPorCodigo(codigo); // ✅ Usamos Inventario.productos desde Producto
+            Producto producto = Producto.buscarPorCodigo(codigo);
 
             if (producto != null) {
                 double subtotal = producto.getPrecio() * cant;
@@ -115,26 +106,46 @@ public class DetallesPedidoActivity extends AppCompatActivity {
 
                 View separator = new View(this);
                 separator.setLayoutParams(new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        1));
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1));
                 separator.setBackgroundColor(Color.parseColor("#E0E0E0"));
 
                 containerProductos.addView(tvProducto);
                 containerProductos.addView(separator);
             }
         }
-
-        // Si quieres mostrar el total al final:
-        /*
-        TextView tvTotal = new TextView(this);
-        tvTotal.setText("Total: " + NumberFormat.getCurrencyInstance(new Locale("es", "CO")).format(total));
-        containerProductos.addView(tvTotal);
-        */
     }
 
-    private void abrirVentaActivity() {
-        Intent intent = new Intent(this, VentasActivity.class);
-        intent.putExtra("pedido", pedido);
-        startActivity(intent);
+    private void confirmarVenta() {
+        // Buscar el pedido real en la lista y confirmar ese
+        for (Pedido p : Pedido.pedidos) {
+            if (p == pedido || pedidosIguales(p, pedido)) {
+                p.confirmar();
+                break;
+            }
+        }
+
+        Pedido.guardarPed(this);  // Guardar los cambios en el archivo
+
+        new AlertDialog.Builder(this)
+                .setTitle("Venta confirmada")
+                .setMessage("¿Qué deseas hacer ahora?")
+                .setPositiveButton("Generar Factura", (dialog, which) -> {
+                    Intent intent = new Intent(this, FacturaActivity.class);
+                    intent.putExtra("pedido", pedido);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton("Salir", (dialog, which) -> {
+                    finish();
+                })
+                .setCancelable(false)
+                .show();
     }
+
+    private boolean pedidosIguales(Pedido a, Pedido b) {
+        return a.getCliente().getNombre().equals(b.getCliente().getNombre())
+                && a.getFecha().equals(b.getFecha())
+                && a.getProductos().equals(b.getProductos());
+    }
+
 }

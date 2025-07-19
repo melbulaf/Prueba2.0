@@ -12,12 +12,29 @@ public class Pedido implements Serializable {
     private String fecha;
     private boolean confirmado;
 
+    private void descontarInventario() {
+        for (String ped : this.productos) {
+            String[] partes = ped.split("_");
+            if (partes.length != 2) continue;
+            int codigoBuscado = Integer.parseInt(partes[0]);
+            int cantidad = Integer.parseInt(partes[1]);
+
+            Producto encontrado = Producto.buscarPorCodigo(codigoBuscado);
+            if (encontrado != null) {
+                encontrado.setCantidad(encontrado.getCantidad() - cantidad);
+            }
+        }
+    }
+
+
+
     public Pedido(Cliente cliente, List<String> productos, String fecha) {
         this.cliente = cliente;
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = false;
-        pedidos.add(this);
+        descontarInventario();
+        Pedido.pedidos.add(this);
     }
 
     public Pedido(Cliente cliente, List<String> productos, String fecha, boolean estado) {
@@ -25,7 +42,10 @@ public class Pedido implements Serializable {
         this.productos = productos;
         this.fecha = fecha;
         this.confirmado = estado;
-        pedidos.add(this);
+        if (!estado) {
+            descontarInventario();
+        }
+        Pedido.pedidos.add(this);
     }
 
     public Cliente getCliente() { return cliente; }
@@ -34,17 +54,6 @@ public class Pedido implements Serializable {
     public boolean getConfirmado() { return confirmado; }
 
     public void confirmar() {
-        for (String ped : this.productos) {
-            String[] partes = ped.split("_");
-            if (partes.length != 2) continue;
-            int codigoBuscado = Integer.parseInt(partes[0]);
-            int cantidad = Integer.parseInt(partes[1]);
-
-            Producto encontrado = Producto.buscarPorCodigo(codigoBuscado); // Usamos Inventario.productos
-            if (encontrado != null) {
-                encontrado.setCantidad(encontrado.getCantidad() - cantidad);
-            }
-        }
         this.confirmado = true;
     }
 

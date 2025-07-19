@@ -39,10 +39,9 @@ public class PedidoAdapter extends RecyclerView.Adapter<PedidoAdapter.PedidoView
         holder.tvCliente.setText(cliente.getNombre());
         holder.tvDireccion.setText(cliente.getDireccion());
 
-        String urgencia = cliente.getUrgencia();
-        if (urgencia == null || urgencia.isEmpty()) {
+        if (cliente.getUrgencia() != null && !cliente.getUrgencia().trim().isEmpty()) {
             holder.tvCliente.setTextColor(Color.RED);
-            holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.ic_warning, 0);
+            holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_warning, 0, 0, 0);
         } else {
             holder.tvCliente.setTextColor(Color.BLACK);
             holder.tvCliente.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);

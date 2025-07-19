@@ -20,9 +20,7 @@ public class ProductosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dialogo_producto);
 
-        Inventario.cargarProductos(this);  // Cargar desde archivo
-        Inventario.poblarProductosEjemplo();  // Solo si está vacío
-
+        Inventario.cargarProductos(this);
         recyclerProductos = findViewById(R.id.recyclerProductos);
         recyclerProductos.setLayoutManager(new LinearLayoutManager(this));
         productoAdapter = new ProductoAdapter(Inventario.productos);

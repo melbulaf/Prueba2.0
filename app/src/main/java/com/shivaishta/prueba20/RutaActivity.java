@@ -1,5 +1,5 @@
 package com.shivaishta.prueba20;
-import java.util.Arrays;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,10 +9,12 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -48,6 +50,9 @@ public class RutaActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("EEEE, d 'de' MMMM", new Locale("es", "ES"));
         tvFechaRuta.setText(sdf.format(new Date()));
 
+        // Cargar pedidos una sola vez
+        Pedido.cargarPed(this);
+
         List<Ruta> rutas = Ruta.rutasPorDefecto();
         Ruta rutaDeHoy = Ruta.rutaDeHoy(rutas);
 
@@ -72,9 +77,6 @@ public class RutaActivity extends AppCompatActivity {
                     imgHandler.postDelayed(this, 4000);
                 }
             }, 4000);
-
-            // <- AQUÍ agregamos productos de ejemplo antes de crear los pedidos
-            Inventario.poblarProductosEjemplo();
 
             List<Pedido> pedidosHoy = obtenerPedidosPorDia(rutaDeHoy.dia);
             Log.d("RutaDebug", "Pedidos encontrados: " + pedidosHoy.size());
@@ -150,42 +152,14 @@ public class RutaActivity extends AppCompatActivity {
 
     private List<Pedido> obtenerPedidosPorDia(String dia) {
         List<Pedido> pedidos = new ArrayList<>();
-        String fecha = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
-        String diaNormalizado = Ruta.normalizaDia(dia);
+        String hoy = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
 
-        switch (diaNormalizado) {
-            case "lunes":
-                pedidos.add(new Pedido(
-                        new Cliente("Lucía Díaz", "3101112233", "Calle 1 #23-45", "Entrega rápida"),
-                        Arrays.asList("1001_10"), // Format: "productCode_quantity"
-                        fecha));
-                break;
-
-            case "viernes":
-                pedidos.add(new Pedido(
-                        new Cliente("Marco Pérez", "3122674001", "Cra 12 #30-10", ""),
-                        Arrays.asList("1002_5", "1003_20"), // Multiple products
-                        fecha));
-                pedidos.add(new Pedido(
-                        new Cliente("Sara Gómez", "3009876543", "Transv 19 #6-45", null),
-                        Arrays.asList("1004_50"),
-                        fecha));
-                break;
-
-            case "miercoles":
-                pedidos.add(new Pedido(
-                        new Cliente("Luis Torres", "3112223333", "Cl. 100 #20-30", "Urgente"),
-                        Arrays.asList("1005_30"),
-                        fecha));
-                break;
-
-            case "sabado":
-                pedidos.add(new Pedido(
-                        new Cliente("Mariana Castro", "3119991111", "Cll 50 #10-22", null),
-                        Arrays.asList("1006_12"),
-                        fecha));
-                break;
+        for (Pedido p : Pedido.pedidos) {
+            if (p.getFecha().equals(hoy) && !p.getConfirmado()) {
+                pedidos.add(p);
+            }
         }
+
         return pedidos;
     }
 

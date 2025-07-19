@@ -76,6 +76,22 @@ public class PedidosAdapter extends RecyclerView.Adapter<PedidosAdapter.PedidosV
             notifyItemRemoved(position);
             notifyItemRangeChanged(position, pedidos.size());
             Pedido.guardarPed(context);
+
+// Mostrar ventana para generar factura o salir
+            new AlertDialog.Builder(context)
+                    .setTitle("Venta confirmada")
+                    .setMessage("¿Deseas generar la factura?")
+                    .setPositiveButton("Generar factura", (dialog, which) -> {
+                        // Ir a FacturaActivity
+                        android.content.Intent intent = new android.content.Intent(context, FacturaActivity.class);
+                        intent.putExtra("pedidoConfirmado", pedido); // El objeto Pedido debe implementar Serializable
+                        context.startActivity(intent);
+                    })
+                    .setNegativeButton("Salir", (dialog, which) -> {
+                        // Solo cerrar el diálogo
+                        dialog.dismiss();
+                    })
+                    .show();
         });
     }
 

@@ -1,7 +1,9 @@
 package com.shivaishta.prueba20;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -182,7 +184,7 @@ public class registro_ped extends AppCompatActivity {
                 String fecha = fechalayout.getText().toString();
 
                 //obtener producto y cantidad
-                List<String> nproductos = new ArrayList<String>();
+                List<String> nproductos = new ArrayList<>();
 
                 TableLayout tabla = findViewById(R.id.tablaProductos);
                 for (int i = 0; i < tabla.getChildCount(); i++) {
@@ -207,9 +209,7 @@ public class registro_ped extends AppCompatActivity {
                         }
 
                         if (productoEncontrado != null) {
-
-                            nproductos.add(Integer.toString(productoEncontrado.getCodigo()) + "_" + Integer.toString(cantidad));
-
+                            nproductos.add(productoEncontrado.getCodigo() + "_" + cantidad);
                         }
                     }
                 }
@@ -221,11 +221,23 @@ public class registro_ped extends AppCompatActivity {
                     npedido.confirmar();
                     //Guardar pedidos
                     Pedido.guardarPed(registro_ped.this);
-                    //toast para notificar al usuario
-                    android.widget.Toast.makeText(registro_ped.this,
-                            "Venta Confirmada Exitosamente.",
-                            android.widget.Toast.LENGTH_LONG).show();
-                    finish();
+                    //Guardar Inventario actualizado
+                    Inventario.guardarProductos(registro_ped.this);
+
+                    // Mostrar ventana de confirmación con opciones
+                    AlertDialog.Builder builder = new AlertDialog.Builder(registro_ped.this);
+                    builder.setTitle("Venta confirmada");
+                    builder.setMessage("¿Deseas generar la factura ahora?");
+                    builder.setPositiveButton("Generar factura", (dialog, which) -> {
+                        Intent intent = new Intent(registro_ped.this, FacturaActivity.class);
+                        intent.putExtra("pedido", npedido);
+                        startActivity(intent);
+                        finish();
+                    });
+                    builder.setNegativeButton("Salir", (dialog, which) -> {
+                        finish(); // Solo cerrar esta pantalla
+                    });
+                    builder.show();
 
                 } else {
                     android.widget.Toast.makeText(registro_ped.this,

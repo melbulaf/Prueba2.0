@@ -39,8 +39,8 @@ public class Cliente implements Serializable{
         return urgencia;
     }
 
-    public String getUr() {
-        return urgencia == null ? "" : urgencia;
+    public Boolean EsUrgente() {
+        return urgencia != null && !urgencia.trim().isEmpty();
     }
 
     // Método requerido en otras clases (como RutaActivity o Factura)

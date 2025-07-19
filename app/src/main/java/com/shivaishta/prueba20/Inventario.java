@@ -33,17 +33,6 @@ public class Inventario {
         productos.add(producto);
     }
 
-    public static void poblarProductosEjemplo() {
-        if (Inventario.productos == null) Inventario.productos = new ArrayList<>();
-        if (Inventario.productos.isEmpty()) {
-            new Producto("Arroz Diana", 1001, "Granos", 10, 3000, 3500);
-            new Producto("Aceite Premier", 1002, "Aceites", 15, 8500, 9500);
-            new Producto("Azúcar Mayagüez", 1003, "Endulzantes", 12, 3500, 4100);
-            new Producto("Sal Refisal", 1004, "Condimentos", 20, 1500, 1800);
-            new Producto("Frijol Rojo", 1005, "Granos", 8, 5000, 5700);
-            new Producto("Lenteja Verde", 1006, "Granos", 9, 4200, 4850);
-        }
-    }
 
     public static void cargarProductos(Context context) {
         File archivo = new File(context.getFilesDir(), "productos.txt");
